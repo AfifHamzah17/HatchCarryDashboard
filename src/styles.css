@@ -1,0 +1,8 @@
+@import "tailwindcss";
+body, html, #root { margin: 0; padding: 0; height: 100%; }
+.app    { display: flex; flex-direction: column; height: 100%; }
+.main   { display: flex; flex: 1; }
+.sidebar {
+  width: 240px; overflow-y: auto; background: #f4f4f4; padding: 1rem;
+}
+.map-container { flex: 1; } 
