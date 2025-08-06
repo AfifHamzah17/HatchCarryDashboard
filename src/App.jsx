@@ -1,13 +1,18 @@
+// src/App.jsx
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import LoginPage from './pages/LoginPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import AdminRoute from './pages/AdminRoute.jsx';
 import DashboardLayout from './pages/DashboardLayout.jsx';
+import DashboardMenu from './pages/DashboardMenu.jsx';
 import MapView from './pages/MapView.jsx';
-// import AdminPanel from './pages/AdminPanel.jsx';
+import UserManagement from './pages/UserManagement.jsx';
+import AdminPanel from './pages/AdminPanel.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -33,11 +38,20 @@ export default function App() {
               </PageWrapper>
             }
           />
-          <Route path="/app" element={<DashboardLayout />}>
-            <Route index element={<Navigate to="map" replace />} />
-            <Route path="map" element={<MapView />} />
-            {/* <Route path="admin" element={<AdminPanel />} /> */}
-          </Route>
+<Route path="/app" element={<DashboardLayout />}>
+  {/* Protected admin routes dibungkus AdminRoute */}
+  <Route index element={<DashboardMenu />} />
+  <Route path="dashboard" element={<DashboardMenu />} />
+  <Route path="map" element={<MapView />} />
+  <Route path="profile" element={<ProfilePage />} />
+
+  {/* Admin-only routes */}
+  <Route element={<AdminRoute />}>
+    <Route path="admin" element={<AdminPanel />} />
+    <Route path="admin/users" element={<UserManagement />} />
+  </Route>
+</Route>
+          {/* Fallback */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AnimatePresence>
@@ -45,7 +59,6 @@ export default function App() {
   );
 }
 
-// Wrapper component for page transitions
 function PageWrapper({ children }) {
   return (
     <motion.div

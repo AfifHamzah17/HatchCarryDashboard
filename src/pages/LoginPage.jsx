@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginAPI } from '../utils/api.js';
+import { parseJwt } from '../utils/jwt.js';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,9 +16,24 @@ export default function LoginPage() {
     if (res.error) {
       toast.error(res.message);
     } else {
+      // Simpan token ke localStorage
       localStorage.setItem('token', res.data.token);
+
+      // Decode token untuk dapat user info
+      const userData = parseJwt(res.data.token);
+
+      if (userData) {
+        // Simpan user info yang diambil dari token (email, role, dsb)
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        // Jika decode gagal, hapus token dan beri peringatan
+        localStorage.removeItem('token');
+        toast.error('Token tidak valid, login gagal.');
+        return;
+      }
+
       toast.success('Login berhasil!');
-      navigate('/app');
+      navigate('/app/dashboard');
     }
   };
 
@@ -26,7 +42,9 @@ export default function LoginPage() {
       onSubmit={handleSubmit}
       className="bg-white p-8 rounded-lg shadow-lg w-96 flex flex-col space-y-4"
     >
-      <h2 className="text-2xl font-bold text-center">Login</h2>
+      <h2 className="text-2xl font-bold text-center">Login Hatch & Carry</h2>
+      <img src="https://www.mendaftarkerja.com/wp-content/uploads/2024/09/IMG_3702.png" style={{ width: '30%', height: '20%', margin: '0 auto' }} />
+      <br />
       <input
         type="email"
         placeholder="Email"
