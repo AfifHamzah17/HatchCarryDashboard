@@ -26,7 +26,9 @@ export default function RegisterPage() {
       onSubmit={handleSubmit}
       className="bg-white p-8 rounded-lg shadow-lg w-96 flex flex-col space-y-4"
     >
-      <h2 className="text-2xl font-bold text-center">Register</h2>
+      <h2 className="text-2xl font-bold text-center">Register Hatch & Carry</h2>
+      <img src="https://www.mendaftarkerja.com/wp-content/uploads/2024/09/IMG_3702.png" style={{ width: '30%', height: '20%', margin: '0 auto' }} />
+      <br />
       <input
         type="email"
         placeholder="Email"

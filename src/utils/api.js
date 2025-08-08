@@ -1,4 +1,4 @@
-const BASE_API = 'http://localhost:3000/api';
+const BASE_API = 'https://hatch-carry-api-307703218179.us-central1.run.app/api';
 
 function authFetch(path, options = {}) {
   const token = localStorage.getItem('token');

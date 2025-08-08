@@ -3,41 +3,177 @@
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
     "singkatan_distrik": "1GLS",
     "kode": "1KSD",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI DAUN",
     "luas_ha": 7091.70,
     "inventaris": 1001003,
     "rumah": 1,
-    "coords": []
+    "coords": [1.67177745, 100.2937518]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSD",
+    "unit": "B",
+    "nama_kebun": "KEBUN SEI DAUN",
+    "luas_ha": 7091.70,
+    "inventaris": 1001003,
+    "rumah": 2,
+    "coords": [1.645720, 100.361153]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
     "singkatan_distrik": "1GLS",
     "kode": "1KTO",
+    "unit": "A",
     "nama_kebun": "KEBUN TORGAMBA",
     "luas_ha": 6102.47,
     "inventaris": 846452,
     "rumah": 1,
-    "coords": []
+    "coords": [1.716168, 100.336743]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
     "singkatan_distrik": "1GLS",
     "kode": "1KSB",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI BARUHUR",
     "luas_ha": 5824.40,
     "inventaris": 743844,
     "rumah": 1,
-    "coords": []
+    "coords": [1.766541, 100.230426]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "B",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 2,
+    "coords": [1.781258, 100.251854E7]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "C",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 3,
+    "coords": [1.809218, 100.269506]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "D",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 4,
+    "coords": [1.4629, 100.1617]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "E",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 5,
+    "coords": [1.791697, 100.277778]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "F",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 6,
+    "coords": [1.791910, 100.293700]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "G",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 7,
+    "coords": [1.78, 100.31]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSB",
+    "unit": "H",
+    "nama_kebun": "KEBUN SEI BARUHUR",
+    "luas_ha": 5824.40,
+    "inventaris": 743844,
+    "rumah": 8,
+    "coords": [1.776185, 100.344423]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
     "singkatan_distrik": "1GLS",
     "kode": "1KSK",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI KEBARA",
     "luas_ha": 3660.46,
     "inventaris": 669235,
     "rumah": 1,
-    "coords": []
+    "coords": [1.7526389, 100.2190278]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSK",
+    "unit": "B",
+    "nama_kebun": "KEBUN SEI KEBARA",
+    "luas_ha": 3660.46,
+    "inventaris": 669235,
+    "rumah": 1,
+    "coords": [1.7480277, 100.2433333]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSK",
+    "unit": "C",
+    "nama_kebun": "KEBUN SEI KEBARA",
+    "luas_ha": 3660.46,
+    "inventaris": 669235,
+    "rumah": 1,
+    "coords": [1.7521667, 100.2700278]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSK",
+    "unit": "D",
+    "nama_kebun": "KEBUN SEI KEBARA",
+    "luas_ha": 3660.46,
+    "inventaris": 669235,
+    "rumah": 1,
+    "coords": [1.7209999, 100.2609722]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
+    "singkatan_distrik": "1GLS",
+    "kode": "1KSK",
+    "unit": "E",
+    "nama_kebun": "KEBUN SEI KEBARA",
+    "luas_ha": 3660.46,
+    "inventaris": 669235,
+    "rumah": 1,
+    "coords": [1.7008056, 100.2743334]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
@@ -47,7 +183,7 @@
     "luas_ha": 5555.94,
     "inventaris": 758153,
     "rumah": 1,
-    "coords": []
+    "coords": [1.737905, 100.171020]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU SELATAN",
@@ -57,29 +193,95 @@
     "luas_ha": 3102.29,
     "inventaris": 416882,
     "rumah": 1,
-    "coords": []
+    "coords": [1.714373, 100.117593]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
     "singkatan_distrik": "1GLB",
     "kode": "1KSU",
+    "unit": "A",
     "nama_kebun": "KEBUN SISUMUT",
     "luas_ha": 5565.77,
     "inventaris": 729553,
     "rumah": 1,
-    "coords": []
+    "coords": [2.002458, 100.084878]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KSU",
+    "unit": "B",
+    "nama_kebun": "KEBUN SISUMUT",
+    "luas_ha": 5565.77,
+    "inventaris": 729553,
+    "rumah": 2,
+    "coords": [1.979148, 100.083607]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KSU",
+    "unit": "C",
+    "nama_kebun": "KEBUN SISUMUT",
+    "luas_ha": 5565.77,
+    "inventaris": 729553,
+    "rumah": 3,
+    "coords": [1.963056, 100.105754]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KSU",
+    "unit": "D",
+    "nama_kebun": "KEBUN SISUMUT",
+    "luas_ha": 5565.77,
+    "inventaris": 729553,
+    "rumah": 4,
+    "coords": [1.953808, 100.066214]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KSU",
+    "unit": "E",
+    "nama_kebun": "KEBUN SISUMUT",
+    "luas_ha": 5565.77,
+    "inventaris": 729553,
+    "rumah": 5,
+    "coords": [1.986449, 100.083420]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
     "singkatan_distrik": "1GLB",
     "kode": "1KAN",
+    "unit": "A",
     "nama_kebun": "KEBUN AEK NABARA UTARA",
     "luas_ha": 2084.32,
     "inventaris": 304314,
     "rumah": 1,
-    "coords": [
-      [2.05682, 99.94174]
-    ]
+    "coords": [2.05682, 99.94174]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KAN",
+    "unit": "B",
+    "nama_kebun": "KEBUN AEK NABARA UTARA",
+    "luas_ha": 2084.32,
+    "inventaris": 304314,
+    "rumah": 2,
+    "coords": [2.0661111, 99.8880555]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KAN",
+    "unit": "C",
+    "nama_kebun": "KEBUN AEK NABARA UTARA",
+    "luas_ha": 2084.32,
+    "inventaris": 304314,
+    "rumah": 3,
+    "coords": [2.0289, 99.8879]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
@@ -95,33 +297,45 @@
     "distrik": "UNIT GROUP LABUHAN BATU",
     "singkatan_distrik": "1GLB",
     "kode": "1KRP",
+    "unit": "A",
     "nama_kebun": "KEBUN RANTAU PRAPAT",
     "luas_ha": 2141.83,
     "inventaris": 278930,
     "rumah": 1,
-    "coords": [
-      [2.118575, 99.801628]
-    ]
+    "coords": [2.118575, 99.801628]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
     "singkatan_distrik": "1GLB",
     "kode": "1KMM",
+    "unit": "A",
     "nama_kebun": "KEBUN MEMBANG MUDA",
     "luas_ha": 475.49,
     "inventaris": 62838,
     "rumah": 1,
-    "coords": []
+    "coords": [2.549590, 99.688743]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
     "singkatan_distrik": "1GLB",
     "kode": "1KLJ",
+    "unit": "A",
     "nama_kebun": "KEBUN LABUHAN HAJI",
     "luas_ha": 1351.06,
     "inventaris": 173528,
     "rumah": 1,
-    "coords": []
+    "coords": [2.535660, 99.710766]
+  },
+  {
+    "distrik": "UNIT GROUP LABUHAN BATU",
+    "singkatan_distrik": "1GLB",
+    "kode": "1KLJ",
+    "unit": "B",
+    "nama_kebun": "KEBUN LABUHAN HAJI",
+    "luas_ha": 1351.06,
+    "inventaris": 173528,
+    "rumah": 2,
+    "coords": [2.526990, 99.781989]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
@@ -131,70 +345,126 @@
     "luas_ha": 374.14,
     "inventaris": 53225,
     "rumah": 1,
-    "coords": []
+    "coords": [2.206114, 99.825727]
   },
   {
     "distrik": "UNIT GROUP ASAHAN",
     "singkatan_distrik": "1GSH",
     "kode": "1KDP",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI DADAP",
     "luas_ha": 3406.28,
     "inventaris": 418358,
     "rumah": 1,
-    "coords": [
-      [2.56453, 99.42872]
-    ]
+    "coords": [2.9408833, 99.7145333]
   },
   {
     "distrik": "UNIT GROUP ASAHAN",
     "singkatan_distrik": "1GSH",
     "kode": "1KPM",
+    "unit": "A",
     "nama_kebun": "KEBUN PULAU MANDI",
     "luas_ha": 2813.69,
     "inventaris": 328520,
     "rumah": 1,
-    "coords": [
-      [2.85350, 99.503823],
-      [2.888884, 99.511611]
-    ]
+    "coords": [2.85350, 99.503823]
+  },
+  {
+    "distrik": "UNIT GROUP ASAHAN",
+    "singkatan_distrik": "1GSH",
+    "kode": "1KPM",
+    "unit": "B",
+    "nama_kebun": "KEBUN PULAU MANDI",
+    "luas_ha": 2813.69,
+    "inventaris": 328520,
+    "rumah": 2,
+    "coords": [2.888884, 99.511611]
   },
   {
     "distrik": "UNIT GROUP ASAHAN",
     "singkatan_distrik": "1GSH",
     "kode": "1KAM",
+    "unit": "A",
     "nama_kebun": "KEBUN 1KAM",
     "luas_ha": 1852.64,
     "inventaris": 180289,
     "rumah": 1,
-    "coords": []
+    "coords": [2.8905556, 99.486389]
   },
   {
     "distrik": "UNIT GROUP ASAHAN",
     "singkatan_distrik": "1GSH",
     "kode": "1KSL",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI SILAU",
     "luas_ha": 2191.32,
     "inventaris": 250653,
     "rumah": 1,
-    "coords": []
+    "coords": [2.922160, 99.535239]
+  },
+  {
+    "distrik": "UNIT GROUP ASAHAN",
+    "singkatan_distrik": "1GSH",
+    "kode": "1KSL",
+    "unit": "B",
+    "nama_kebun": "KEBUN SEI SILAU",
+    "luas_ha": 2191.32,
+    "inventaris": 250653,
+    "rumah": 2,
+    "coords": [2.967533, 99.537288]
+  },
+  {
+    "distrik": "UNIT GROUP ASAHAN",
+    "singkatan_distrik": "1GSH",
+    "kode": "1KSL",
+    "unit": "C",
+    "nama_kebun": "KEBUN SEI SILAU",
+    "luas_ha": 2191.32,
+    "inventaris": 250653,
+    "rumah": 3,
+    "coords": [2.942168, 99.536247]
   },
   {
     "distrik": "UNIT GROUP ASAHAN",
     "singkatan_distrik": "1GSH",
     "kode": "1KHP",
+    "unit": "A",
     "nama_kebun": "KEBUN HUTA PADANG",
     "luas_ha": 3905.29,
     "inventaris": 447630,
     "rumah": 1,
-    "coords": []
+    "coords": [2.885111, 99.419485]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KBS",
+    "unit": "A",
     "nama_kebun": "KEBUN BANDAR SELAMAT",
     "luas_ha": 3570.99,
     "inventaris": 445168,
+    "rumah": 1,
+    "coords": [2.632019, 99.537517]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 1",
+    "singkatan_distrik": "1GS 1",
+    "kode": "1KDH",
+    "unit": "A",
+    "nama_kebun": "KEBUN DUSUN HULU",
+    "luas_ha": 1821.83,
+    "inventaris": 231262,
+    "rumah": 1,
+    "coords": [3.079444, 99.451333]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 1",
+    "singkatan_distrik": "1GS 1",
+    "kode": "1KBB",
+    "unit": "A",
+    "nama_kebun": "KEBUN BANDAR BETSY",
+    "luas_ha": 268.4,
+    "inventaris": 37774,
     "rumah": 1,
     "coords": []
   },
@@ -202,102 +472,264 @@
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KBN",
+    "unit": "A",
     "nama_kebun": "KEBUN BANGUN",
     "luas_ha": 1769.70,
     "inventaris": 225060,
     "rumah": 1,
-    "coords": []
+    "coords": [2.97593, 99.16992]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KGP",
+    "unit": "A",
     "nama_kebun": "KEBUN GUNUNG PAMELA",
     "luas_ha": 1835.78,
     "inventaris": 199586,
     "rumah": 1,
-    "coords": []
+    "coords": [3.222052, 99.066042]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KGM",
+    "unit": "A",
     "nama_kebun": "KEBUN GUNUNG MONAKO",
     "luas_ha": 1560.41,
     "inventaris": 183628,
     "rumah": 1,
-    "coords": []
+    "coords": [3.224111, 98.999277]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KSA",
+    "unit": "A",
     "nama_kebun": "KEBUN SILAU DUNIA",
     "luas_ha": 2100.58,
     "inventaris": 241650,
     "rumah": 1,
-    "coords": []
+    "coords": [3.292928, 98.945407]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
     "singkatan_distrik": "1GS 1",
     "kode": "1KGR",
+    "unit": "A",
     "nama_kebun": "KEBUN GUNUNG PARA",
     "luas_ha": 453.19,
     "inventaris": 45508,
-    "rumah": -1,
+    "rumah": 0,
     "coords": []
   },
   {
     "distrik": "UNIT GROUP SERDANG 2",
     "singkatan_distrik": "1GS 2",
     "kode": "1KSP",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI PUTIH",
     "luas_ha": 388.05,
     "inventaris": 89354,
     "rumah": 1,
-    "coords": []
+    "coords": [3.4094722, 98.98130555555555]
   },
   {
     "distrik": "UNIT GROUP SERDANG 2",
     "singkatan_distrik": "1GS 2",
     "kode": "1KSG",
+    "unit": "A",
     "nama_kebun": "KEBUN SARANG GITING",
     "luas_ha": 698.57,
     "inventaris": 82317,
     "rumah": 1,
-    "coords": [
-      [3.338161, 98.977121]
-    ]
+    "coords": [3.338161, 98.977121]
   },
   {
     "distrik": "UNIT GROUP SERDANG 2",
     "singkatan_distrik": "1GS 2",
     "kode": "1KTR",
+    "unit": "A",
     "nama_kebun": "KEBUN TANAH RAJA",
     "luas_ha": 2064.43,
     "inventaris": 270968,
     "rumah": 1,
+    "coords": [3.495953, 99.030094]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 2",
+    "singkatan_distrik": "1GS 2",
+    "kode": "1KRB",
+    "unit": "A",
+    "nama_kebun": "KEBUN RAMBUTAN",
+    "luas_ha": 5248.74,
+    "inventaris": 679993,
+    "rumah": 1,
+    "coords": [3.357600, 99.134872]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 2",
+    "singkatan_distrik": "1GS 2",
+    "kode": "1KHG",
+    "unit": "A",
+    "nama_kebun": "KEBUN HAPESONG",
+    "luas_ha": 555.65,
+    "inventaris": 67911,
+    "rumah": 1,
     "coords": []
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 2",
+    "singkatan_distrik": "1GS 2",
+    "kode": "1KBU",
+    "unit": "A",
+    "nama_kebun": "KEBUN BATANG TORU",
+    "luas_ha": 1960.40,
+    "inventaris": 245211,
+    "rumah": 1,
+    "coords": [1.470772, 99.043377]
   },
   {
     "distrik": "DISTRIK MERANTI , TUJUH",
     "singkatan_distrik": "1DMT",
-    "kode": "1KMS",
+    "kode": "1KSM",
+    "unit": "A",
     "nama_kebun": "KEBUN SEI MERANTI",
-    "luas_ha": 3406.28,
-    "inventaris": 418358,
+    "luas_ha": 7152.63,
+    "inventaris": 981886,
     "rumah": 1,
-    "coords": []
+    "coords": [1.6214, 100.3244]
+  },
+  {
+    "distrik": "DISTRIK MERANTI , TUJUH",
+    "singkatan_distrik": "1DMT",
+    "kode": "1KSM",
+    "unit": "B",
+    "nama_kebun": "KEBUN SEI MERANTI",
+    "luas_ha": 7152.63,
+    "inventaris": 981886,
+    "rumah": 2,
+    "coords": [1.633782, 100.422463]
+  },
+  {
+    "distrik": "DISTRIK MERANTI , TUJUH",
+    "singkatan_distrik": "1DMT",
+    "kode": "1KBT",
+    "unit": "A",
+    "nama_kebun": "KEBUN BUKIT TUJUH",
+    "luas_ha": 3856.91,
+    "inventaris": 541943,
+    "rumah": 1,
+    "coords": [1.565691, 100.239680]
   },
   {
     "distrik": "DISTRIK ACEH TIMUR",
     "singkatan_distrik": "1DAT",
     "kode": "1KKI",
+    "unit": "A",
     "nama_kebun": "KEBUN KARANG INONG",
+    "luas_ha": 477.85,
+    "inventaris": 31379,
+    "rumah": 1,
+    "coords": [4.744834, 97.778994]
+  },
+  {
+    "distrik": "DISTRIK ACEH TIMUR",
+    "singkatan_distrik": "1DAT",
+    "kode": "1KLJ",
+    "unit": "A",
+    "nama_kebun": "KEBUN JOLOK RAYEUK SELATAN",
+    "luas_ha": 1351.06,
+    "inventaris": 173528,
+    "rumah": 1,
+    "coords": [2.535660, 99.710766]
+  },
+  {
+    "distrik": "DISTRIK ACEH TIMUR",
+    "singkatan_distrik": "1DAT",
+    "kode": "1KLJ",
+    "unit": "B",
+    "nama_kebun": "KEBUN JOLOK RAYEUK SELATAN",
+    "luas_ha": 1351.06,
+    "inventaris": 173528,
+    "rumah": 2,
+    "coords": [2.526990, 99.781989]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KCB",
+    "unit": "A",
+    "nama_kebun": "KEBUN JOLOK RAYEUK SELATAN",
+    "luas_ha": 1351.06,
+    "inventaris": 173528,
+    "rumah": 1,
+    "coords": [-6.475005, 106.234895]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KBO",
+    "unit": "A",
+    "nama_kebun": "KEBUN BOJONG DATAR",
+    "luas_ha": 2807.39,
+    "inventaris": 310196,
+    "rumah": 1,
+    "coords": [-6.499300, 106.086467]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KPA",
+    "unit": "A",
+    "nama_kebun": "KEBUN PANGLEJAR",
+    "luas_ha": 1767.36,
+    "inventaris": 213223,
+    "rumah": 1,
+    "coords": [-6.686987, 107.709774]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KKE",
+    "unit": "A",
+    "nama_kebun": "KEBUN KERTAJAYA",
     "luas_ha": 2550.14,
     "inventaris": 310907,
     "rumah": 1,
+    "coords": [-6.525583, 105.924617]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KTB",
+    "unit": "A",
+    "nama_kebun": "KEBUN CIBUNGUNG",
+    "luas_ha": 2842.00,
+    "inventaris": 247704,
+    "rumah": 1,
+    "coords": [-6.898770, 106.645139]
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KCI",
+    "unit": "A",
+    "nama_kebun": "KEBUN CIKASUNGKA",
+    "luas_ha": 2842.00,
+    "inventaris": 247704,
+    "rumah": 1,
     "coords": []
+  },
+  {
+    "distrik": "DISTRIK JAWA BARAT - BANTEN",
+    "singkatan_distrik": "1DJB",
+    "kode": "1KKA",
+    "unit": "A",
+    "nama_kebun": "KEBUN SUKA MAJU",
+    "luas_ha": 3124.42,
+    "inventaris": 360513,
+    "rumah": 1,
+    "coords": [-6.890548, 106.750923]
   }
 ]

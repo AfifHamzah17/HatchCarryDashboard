@@ -35,22 +35,22 @@ export default function ProfilePage() {
     }
   };
 
-  if (!profile) return <div>Memuat profil…</div>;
+  if (!profile) return <div className="text-center">Memuat profil…</div>;
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded shadow space-y-6">
-      <h1 className="text-2xl font-bold">Profil Saya</h1>
+    <div className="max-w-md mx-auto p-6 bg-white rounded shadow flex flex-col items-center space-y-6">
+      <h1 className="text-2xl font-bold text-center">Profil Saya</h1>
       <img
         src={preview || profile.avatarUrl || '/default-avatar.png'}
         alt="Avatar"
-        className="w-32 h-32 rounded-full object-cover"
+        className="w-32 h-32 rounded-full object-cover mx-auto"
       />
-      <div>
+      <div className="flex flex-col items-center">
         <p><strong>Email:</strong> {profile.email}</p>
         <p><strong>Username:</strong> {profile.username}</p>
         <p><strong>Role:</strong> {profile.role}</p>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 flex flex-col items-center">
         <input
           type="file"
           accept="image/*"

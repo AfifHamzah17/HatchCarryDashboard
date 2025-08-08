@@ -51,6 +51,9 @@ export default function DashboardLayout() {
           <Link to="profile" className="block px-3 py-2 rounded hover:bg-gray-100">
             Profile
           </Link>
+          <Link to="gallery" className="block px-3 py-2 rounded hover:bg-gray-100">
+            Gallery
+          </Link>
         </aside>
 
         <main className="flex-1 p-4 overflow-auto" style={{ minHeight: 'calc(100vh - 64px)' }}>

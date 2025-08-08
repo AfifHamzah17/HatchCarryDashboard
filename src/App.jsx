@@ -13,6 +13,7 @@ import DashboardMenu from './pages/DashboardMenu.jsx';
 import MapView from './pages/MapView.jsx';
 import UserManagement from './pages/UserManagement.jsx';
 import AdminPanel from './pages/AdminPanel.jsx';
+import GalleryPage from './pages/GaleryPage.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -44,6 +45,7 @@ export default function App() {
   <Route path="dashboard" element={<DashboardMenu />} />
   <Route path="map" element={<MapView />} />
   <Route path="profile" element={<ProfilePage />} />
+  <Route path="gallery" element={<GalleryPage />} />
 
   {/* Admin-only routes */}
   <Route element={<AdminRoute />}>
