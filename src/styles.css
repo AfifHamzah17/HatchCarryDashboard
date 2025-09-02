@@ -165,3 +165,12 @@ main {
   color: #555;
   font-size: 0.9rem;
 }
+
+.leaflet-control-zoom .leaflet-control-zoom-in,
+.leaflet-control-zoom .leaflet-control-zoom-out {
+    display: none !important;
+}
+
+.leaflet-control-zoom leaflet-bar leaflet-control{
+    display: none !important;
+}

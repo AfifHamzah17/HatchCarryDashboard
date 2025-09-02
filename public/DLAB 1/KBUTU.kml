@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="KBUTU" id="KBUTU">
+	<SimpleField name="KEBUN" type="string"></SimpleField>
+	<SimpleField name="AFDELING" type="string"></SimpleField>
+	<SimpleField name="TAHUNTANAM" type="string"></SimpleField>
+	<SimpleField name="BLOK" type="string"></SimpleField>
+</Schema>
+<Folder><name>KBUTU</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#KBUTU">
+		<SimpleData name="KEBUN">KBUTU</SimpleData>
+		<SimpleData name="AFDELING">IV</SimpleData>
+		<SimpleData name="TAHUNTANAM">KELAPA SAWIT TM 2006</SimpleData>
+		<SimpleData name="BLOK">A6</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>100.26653729913,1.58451411992023 100.267211903065,1.56157081879217 100.266746103931,1.54847626987528 100.175632894326,1.54778702023681 100.175735920456,1.58387534761155 100.26653729913,1.58451411992023</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+</Folder>
+</Document></kml>

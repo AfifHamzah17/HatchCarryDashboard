@@ -80,7 +80,7 @@ export default function AllChartsExample() {
         <Paper style={{ padding: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <img
-              src="https://wri-indonesia.org/sites/default/files/styles/500x300/public/2024-04/_DSC3941.jpg?h=5436ec95&itok=B9DMpfvS"
+              src="/public/1.png"
               alt="Image 1"
               width="500"
               height="300"

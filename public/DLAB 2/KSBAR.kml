@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="KSBAR" id="KSBAR">
+	<SimpleField name="KEBUN" type="string"></SimpleField>
+	<SimpleField name="AFDELING" type="string"></SimpleField>
+	<SimpleField name="TAHUNTANAM" type="string"></SimpleField>
+	<SimpleField name="BLOK" type="string"></SimpleField>
+</Schema>
+<Folder><name>KSBAR</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#KSBAR">
+		<SimpleData name="KEBUN">KSBAR</SimpleData>
+		<SimpleData name="AFDELING">AFD II</SimpleData>
+		<SimpleData name="TAHUNTANAM">Sawit 2010</SimpleData>
+		<SimpleData name="BLOK">I11</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>100.352812827728,1.79144236087522,0 100.352421242971,1.76318250742067,0 100.352369671944,1.76318258160044,0 100.352323508602,1.76174609502488,0 100.209472650385,1.7627862034566,0 100.209546470847,1.76293864284688,206.994099999996 100.234369706912,1.787641147321,139.216233397479 100.269678473698,1.82347100343942,41.0037678452658 100.285588947309,1.83898299507618,0 100.28569603861,1.83478694987356,0 100.285901959543,1.82430047145513,0 100.285993546902,1.79906046740621,0 100.319285736605,1.80020181725387,0 100.319673007029,1.79218363876129,0 100.352812827728,1.79144236087522,0</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+</Folder>
+</Document></kml>

@@ -139,7 +139,7 @@
     "nama_kebun": "KEBUN SEI KEBARA",
     "luas_ha": 3660.46,
     "inventaris": 669235,
-    "rumah": 1,
+    "rumah": 2,
     "coords": [1.7480277, 100.2433333]
   },
   {
@@ -150,7 +150,7 @@
     "nama_kebun": "KEBUN SEI KEBARA",
     "luas_ha": 3660.46,
     "inventaris": 669235,
-    "rumah": 1,
+    "rumah": 3,
     "coords": [1.7521667, 100.2700278]
   },
   {
@@ -161,7 +161,7 @@
     "nama_kebun": "KEBUN SEI KEBARA",
     "luas_ha": 3660.46,
     "inventaris": 669235,
-    "rumah": 1,
+    "rumah": 4,
     "coords": [1.7209999, 100.2609722]
   },
   {
@@ -172,7 +172,7 @@
     "nama_kebun": "KEBUN SEI KEBARA",
     "luas_ha": 3660.46,
     "inventaris": 669235,
-    "rumah": 1,
+    "rumah": 5,
     "coords": [1.7008056, 100.2743334]
   },
   {
@@ -291,7 +291,7 @@
     "luas_ha": 6898.03,
     "inventaris": 916527,
     "rumah": 1,
-    "coords": []
+    "coords": [ 2.02472, 99.96722]
   },
   {
     "distrik": "UNIT GROUP LABUHAN BATU",
@@ -466,7 +466,18 @@
     "luas_ha": 268.4,
     "inventaris": 37774,
     "rumah": 1,
-    "coords": []
+    "coords": [3.16600833, 99.26776000]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 1",
+    "singkatan_distrik": "1GS 1",
+    "kode": "1KBB",
+    "unit": "B",
+    "nama_kebun": "KEBUN BANDAR BETSY",
+    "luas_ha": 268.4,
+    "inventaris": 37774,
+    "rumah": 2,
+    "coords": [3.16683367, 99.27024967]
   },
   {
     "distrik": "UNIT GROUP SERDANG 1",
@@ -576,7 +587,7 @@
     "luas_ha": 555.65,
     "inventaris": 67911,
     "rumah": 1,
-    "coords": []
+    "coords": [1.411383,	99.057843]
   },
   {
     "distrik": "UNIT GROUP SERDANG 2",
@@ -716,10 +727,10 @@
     "kode": "1KCI",
     "unit": "A",
     "nama_kebun": "KEBUN CIKASUNGKA",
-    "luas_ha": 2842.00,
-    "inventaris": 247704,
+    "luas_ha": 3520.17,
+    "inventaris": 396182,
     "rumah": 1,
-    "coords": []
+    "coords": [-6.5265,	106.7162]
   },
   {
     "distrik": "DISTRIK JAWA BARAT - BANTEN",

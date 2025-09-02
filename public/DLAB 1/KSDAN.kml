@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="KSDAN" id="KSDAN">
+	<SimpleField name="KEBUN" type="string"></SimpleField>
+	<SimpleField name="AFDELING" type="string"></SimpleField>
+	<SimpleField name="TAHUNTANAM" type="string"></SimpleField>
+	<SimpleField name="BLOK" type="string"></SimpleField>
+</Schema>
+<Folder><name>KSDAN</name>
+  <Placemark>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#KSDAN">
+		<SimpleData name="KEBUN">KSDAN</SimpleData>
+		<SimpleData name="AFDELING">I</SimpleData>
+		<SimpleData name="TAHUNTANAM">KELAPA SAWIT TM 2006</SimpleData>
+		<SimpleData name="BLOK">EE13</SimpleData>
+	</SchemaData></ExtendedData>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>100.37630444286,1.68614899735569 100.376127632412,1.63241185832668 100.261015939338,1.63260453837681 100.261427900125,1.68578719019286 100.37630444286,1.68614899735569</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+</Folder>
+</Document></kml>
