@@ -584,10 +584,32 @@
     "kode": "1KHG",
     "unit": "A",
     "nama_kebun": "KEBUN HAPESONG",
-    "luas_ha": 555.65,
-    "inventaris": 67911,
+    "luas_ha": 247.05,
+    "inventaris": 29253,
     "rumah": 1,
-    "coords": [1.411383,	99.057843]
+    "coords": [1.445245,	99.067115]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 2",
+    "singkatan_distrik": "1GS 2",
+    "kode": "1KHG",
+    "unit": "B",
+    "nama_kebun": "KEBUN HAPESONG",
+    "luas_ha": 114.5,
+    "inventaris": 14961,
+    "rumah": 2,
+    "coords": [1.449864,	99.039610]
+  },
+  {
+    "distrik": "UNIT GROUP SERDANG 2",
+    "singkatan_distrik": "1GS 2",
+    "kode": "1KHG",
+    "unit": "C",
+    "nama_kebun": "KEBUN HAPESONG",
+    "luas_ha": 112.05,
+    "inventaris": 13340,
+    "rumah": 3,
+    "coords": [1.411398,	99.057853]
   },
   {
     "distrik": "UNIT GROUP SERDANG 2",
@@ -642,7 +664,8 @@
     "luas_ha": 477.85,
     "inventaris": 31379,
     "rumah": 1,
-    "coords": [4.744834, 97.778994]
+    "coords": [4.744834, 97.778994],
+    "link": "https://drive.google.com/file/d/1Ro76S8aZpFabgV7oiNJIqmrDY_uNv67u/view?usp=drive_link"
   },
   {
     "distrik": "DISTRIK ACEH TIMUR",

@@ -150,12 +150,12 @@ function KmlLoader() {
 
     const kmlFiles = [
       // daftar KML (sama seperti sebelumnya)
-      { file: 'DASAH/KAMBT.kml', label: 'KAMBT' },
-      { file: 'DASAH/KBDSL.kml', label: 'KBDSL' },
-      { file: 'DASAH/KHTPD.kml', label: 'KHTPD' },
-      { file: 'DASAH/KPMDI.kml', label: 'KPMDI' },
-      { file: 'DASAH/KSDDP.kml', label: 'KSDDP' },
-      { file: 'DASAH/KSSIL.kml', label: 'KSSIL' },
+      { file: 'DASAH/KAMBT.kml', label: 'KAM' },
+      { file: 'DASAH/KBDSL.kml', label: 'KSL' },
+      { file: 'DASAH/KHTPD.kml', label: 'KHP' },
+      { file: 'DASAH/KPMDI.kml', label: 'KPM' },
+      { file: 'DASAH/KSDDP.kml', label: 'KDP' },
+      { file: 'DASAH/KSSIL.kml', label: 'KSL' },
       { file: 'DLAB 1/KBUTU.kml', label: 'KBUTU' },
       { file: 'DLAB 1/KSDAN.kml', label: 'KSDAN' },
       { file: 'DLAB 1/KSMTI.kml', label: 'KSMTI' },
@@ -550,6 +550,14 @@ export default function MapView() {
               >
                 View on Google Maps
               </a>
+              <br />
+                  {m.link && (
+        <img
+          src={`https://drive.google.com/file/d/1Ro76S8aZpFabgV7oiNJIqmrDY_uNv67u/view?usp=drive_link`}
+          alt="Kebun"
+          style={{ width: '100%', marginTop: '10px' }}
+        />
+      )}
             </Popup>
           </Marker>
         ))}
