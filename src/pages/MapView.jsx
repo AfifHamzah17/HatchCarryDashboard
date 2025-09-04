@@ -9,6 +9,8 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import kebunData from '../data/kebun.json';
+import GeoRasterLayer from 'georaster-layer-for-leaflet';
+import georaster from 'georaster';
 import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -132,6 +134,51 @@ function Resizer({ shouldResize }) {
       }, 250);
     }
   }, [shouldResize, map]);
+  return null;
+}
+
+function TiffLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const url = 'https://storage.googleapis.com/ptpn4-n4r1/orto-map-storage/test.tif';  // URL dari cloud storage
+
+    let layer = null;
+
+    async function loadTiff() {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch GeoTIFF: ${response.status} ${response.statusText}`);
+        }
+        const arrayBuffer = await response.arrayBuffer();
+
+        const raster = await georaster(arrayBuffer);
+
+        // Buat layer GeoRaster untuk ditampilkan di peta
+        layer = new GeoRasterLayer({
+          georaster: raster,
+          opacity: 0.7,
+          resolution: 256,
+        });
+
+        // Tambahkan layer ke peta dan sesuaikan batasnya
+        layer.addTo(map);
+        map.fitBounds(layer.getBounds());
+      } catch (error) {
+        console.error('GeoTIFF Load Error:', error);
+      }
+    }
+
+    loadTiff();
+
+    return () => {
+      if (layer && map) {
+        map.removeLayer(layer);
+      }
+    };
+  }, [map]);
+
   return null;
 }
 
@@ -513,58 +560,28 @@ export default function MapView() {
         </div>
       )}
 
-      {/* Map */}
-      <MapContainer center={[-0.5, 100]} zoom={6} className="h-full w-full">
-        {/* Jika activeBasemap adalah Google -> tampilkan GoogleMutantLayer */}
-        {(activeBasemap === 'google_roadmap' || activeBasemap === 'google_satellite') && (
-          <GoogleMutantLayer mapType={activeBasemap === 'google_roadmap' ? 'roadmap' : 'satellite'} />
-        )}
+   <MapContainer center={[-0.5, 100]} zoom={6} className="h-full w-full">
+  {(activeBasemap === 'google_roadmap' || activeBasemap === 'google_satellite') && (
+    <GoogleMutantLayer mapType={activeBasemap === 'google_roadmap' ? 'roadmap' : 'satellite'} />
+  )}
 
-        {/* Jika non-Google -> render TileLayer sesuai pilihan */}
-        {activeBasemap !== 'google_roadmap' && activeBasemap !== 'google_satellite' && renderNonGoogleLayer()}
+  {activeBasemap !== 'google_roadmap' && activeBasemap !== 'google_satellite' && renderNonGoogleLayer()}
 
-        <KmlLoader />
+  <KmlLoader />
+  <TiffLayer /> {/* 👈 tambahkan ini */}
 
-        {/* Marker */}
-        {markers.map((m, idx) => (
-          <Marker key={`${m.kode}-${m.rumah}-${idx}`} position={m.position}>
-            <Popup>
-              <strong>
-                {m.kode} — Rumah {m.rumah}
-              </strong>
-              <br />
-              {m.nama}
-              <br />
-              Koordinat: {m.position[0].toFixed(6)} N,{' '}
-              {m.position[1].toFixed(6)} E
-              <br />
-              Luas: {m.luas_ha} ha
-              <br />
-              Inventaris: {m.inventaris} pohon
-              <br />
-              <a
-                href={`https://www.google.com/maps?q=${m.position[0]},${m.position[1]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline mt-1 inline-block"
-              >
-                View on Google Maps
-              </a>
-              <br />
-                  {m.link && (
-        <img
-          src={`https://drive.google.com/file/d/1Ro76S8aZpFabgV7oiNJIqmrDY_uNv67u/view?usp=drive_link`}
-          alt="Kebun"
-          style={{ width: '100%', marginTop: '10px' }}
-        />
-      )}
-            </Popup>
-          </Marker>
-        ))}
+  {/* Marker */}
+  {markers.map((m, idx) => (
+    <Marker key={`${m.kode}-${m.rumah}-${idx}`} position={m.position}>
+      <Popup>
+        {/* isi popup */}
+      </Popup>
+    </Marker>
+  ))}
 
-        {flyInfo && <FlyTo position={flyInfo.position} />}
-        <Resizer shouldResize={showList} />
-      </MapContainer>
+  {flyInfo && <FlyTo position={flyInfo.position} />}
+  <Resizer shouldResize={showList} />
+</MapContainer>
 
       <style>{`
         .afd-label {
