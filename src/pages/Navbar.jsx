@@ -4,16 +4,22 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Navbar({ toggleSidebar }) {
   const navigate = useNavigate();
+  
   const handleLogout = () => {
+    // Hapus token dan data user dari localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    
+    // Redirect ke halaman login
     navigate('/login', { replace: true });
+    
+    // Refresh halaman untuk memastikan semua state direset
+    window.location.reload();
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b px-6 py-4 flex justify-between items-center shadow">
       <div className="text-2xl font-bold text-green-600">HatchCarry</div>
-
       <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
         <li>
           <a href="/app/dashboard" className="hover:text-green-600 transition">Dashboard</a>
@@ -30,7 +36,6 @@ export default function Navbar({ toggleSidebar }) {
           </button>
         </li>
       </ul>
-
       {/* Burger icon (mobile only) */}
       <div className="md:hidden flex items-center space-x-4">
         <button

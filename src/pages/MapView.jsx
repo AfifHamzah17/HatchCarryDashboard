@@ -15,11 +15,11 @@ import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
+// Import komponen GeoJson yang sudah dibuat
+import GeoJson from '../components/geojson';
 // Plugin yang kita butuhkan (pastikan ter-install)
 import 'leaflet.gridlayer.googlemutant'; // google basemap as Leaflet layer
 import 'leaflet-omnivore'; // untuk load KML (omnivore akan global/window.omnivore biasanya)
-
 // Atur ikon marker Leaflet (tetap sama)
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -27,10 +27,8 @@ L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
-
 // Ambil API key dari Vite env
 const GOOGLE_API_KEY = import.meta.env.VITE_MAP_API || '';
-
 // Load Google Maps JS API secara dinamis
 function loadGoogleMapsScript(apiKey) {
   return new Promise((resolve, reject) => {
@@ -61,29 +59,23 @@ function loadGoogleMapsScript(apiKey) {
     document.head.appendChild(script);
   });
 }
-
 // GoogleMutantLayer: menambahkan Google basemap ke Leaflet via gridlayer.googleMutant
 function GoogleMutantLayer({ mapType = 'roadmap' }) {
   const map = useMap();
   const layerRef = useRef(null);
-
   useEffect(() => {
     let mounted = true;
-
     async function setup() {
       try {
         await loadGoogleMapsScript(GOOGLE_API_KEY);
-
         if (!L.gridLayer || !L.gridLayer.googleMutant) {
           console.error('googleMutant factory tidak ditemukan pada L.gridLayer. Pastikan paket leaflet.gridlayer.googlemutant terinstall.');
           return;
         }
-
         const gmLayer = L.gridLayer.googleMutant({
           type: mapType, // 'roadmap' | 'satellite' | 'hybrid' | 'terrain'
           maxZoom: 21,
         });
-
         if (mounted) {
           gmLayer.addTo(map);
           layerRef.current = gmLayer;
@@ -94,9 +86,7 @@ function GoogleMutantLayer({ mapType = 'roadmap' }) {
         console.error('Gagal memuat Google Maps atau googleMutant:', err);
       }
     }
-
     setup();
-
     return () => {
       mounted = false;
       if (layerRef.current && map) {
@@ -109,10 +99,8 @@ function GoogleMutantLayer({ mapType = 'roadmap' }) {
       layerRef.current = null;
     };
   }, [map, mapType]);
-
   return null;
 }
-
 // FlyTo (tetap)
 function FlyTo({ position }) {
   const map = useMap();
@@ -123,7 +111,6 @@ function FlyTo({ position }) {
   }, [position, map]);
   return null;
 }
-
 // Resizer (tetap)
 function Resizer({ shouldResize }) {
   const map = useMap();
@@ -136,165 +123,19 @@ function Resizer({ shouldResize }) {
   }, [shouldResize, map]);
   return null;
 }
-
-function TiffLayer() {
-  const map = useMap();
-
-  useEffect(() => {
-    const url = 'https://storage.googleapis.com/ptpn4-n4r1/orto-map-storage/test.tif';  // URL dari cloud storage
-
-    let layer = null;
-
-    async function loadTiff() {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch GeoTIFF: ${response.status} ${response.statusText}`);
-        }
-        const arrayBuffer = await response.arrayBuffer();
-
-        const raster = await georaster(arrayBuffer);
-
-        // Buat layer GeoRaster untuk ditampilkan di peta
-        layer = new GeoRasterLayer({
-          georaster: raster,
-          opacity: 0.7,
-          resolution: 256,
-        });
-
-        // Tambahkan layer ke peta dan sesuaikan batasnya
-        layer.addTo(map);
-        map.fitBounds(layer.getBounds());
-      } catch (error) {
-        console.error('GeoTIFF Load Error:', error);
-      }
-    }
-
-    loadTiff();
-
-    return () => {
-      if (layer && map) {
-        map.removeLayer(layer);
-      }
-    };
-  }, [map]);
-
-  return null;
-}
-
-// KML Loader memakai omnivore (tetap)
-function KmlLoader() {
-  const map = useMap();
-
-  useEffect(() => {
-    if (!window.omnivore) {
-      console.error('Leaflet omnivore is not loaded (window.omnivore). Pastikan paket leaflet-omnivore terimport.');
-      return;
-    }
-
-    const layerGroup = L.layerGroup().addTo(map);
-    const colors = ['red', 'green', 'blue', 'orange', 'purple', 'cyan'];
-
-    const kmlFiles = [
-      // daftar KML (sama seperti sebelumnya)
-      { file: 'DASAH/KAMBT.kml', label: 'KAM' },
-      { file: 'DASAH/KBDSL.kml', label: 'KSL' },
-      { file: 'DASAH/KHTPD.kml', label: 'KHP' },
-      { file: 'DASAH/KPMDI.kml', label: 'KPM' },
-      { file: 'DASAH/KSDDP.kml', label: 'KDP' },
-      { file: 'DASAH/KSSIL.kml', label: 'KSL' },
-      { file: 'DLAB 1/KBUTU.kml', label: 'KBUTU' },
-      { file: 'DLAB 1/KSDAN.kml', label: 'KSDAN' },
-      { file: 'DLAB 1/KSMTI.kml', label: 'KSMTI' },
-      { file: 'DLAB 1/KTORA.kml', label: 'KTORA' },
-      { file: 'DLAB 2/KATOR.kml', label: 'KATOR' },
-      { file: 'DLAB 2/KPARO.kml', label: 'KPARO' },
-      { file: 'DLAB 2/KSBAR.kml', label: 'KSBAR' },
-      { file: 'DLAB 2/KSKAR.kml', label: 'KSKAR' },
-      { file: 'DLAB 3/KANAS.kml', label: 'KANAS' },
-      { file: 'DLAB 3/KANAU.kml', label: 'KANAU' },
-      { file: 'DLAB 3/KLAJI.kml', label: 'KLAJI' },
-      { file: 'DLAB 3/KMMDA.kml', label: 'KMMDA' },
-      { file: 'DLAB 3/KMSTN.kml', label: 'KMSTN' },
-      { file: 'DLAB 3/KRPPT.kml', label: 'KRPPT' },
-      { file: 'DLAB 3/KSSUT.kml', label: 'KSSUT' },
-      { file: 'DSER 1/KBANG.kml', label: 'KBANG' },
-      { file: 'DSER 1/KBDBY.kml', label: 'KBDBY' },
-      { file: 'DSER 1/KDSHU.kml', label: 'KDSHU' },
-      { file: 'DSER 1/KGMNO.kml', label: 'KGMNO' },
-      { file: 'DSER 1/KGPAR.kml', label: 'KGPAR' },
-      { file: 'DSER 1/KGPMA.kml', label: 'KGPMA' },
-      { file: 'DSER 1/KSDUN.kml', label: 'KSDUN' },
-      { file: 'DSER 2/KGBTU.kml', label: 'KGBTU' },
-      { file: 'DSER 2/KHPSG.kml', label: 'KHPSG' },
-      { file: 'DSER 2/KRBTN.kml', label: 'KRBTN' },
-      { file: 'DSER 2/KSGGI.kml', label: 'KSGGI' },
-      { file: 'DSER 2/KSPTH.kml', label: 'KSPTH' },
-      { file: 'DSER 2/KTARA.kml', label: 'KTARA' },
-    ];
-
-    kmlFiles.forEach(({ file, label }, idx) => {
-      const color = colors[idx % colors.length];
-      const fullPath = `/${file}`;
-
-      const kmlLayer = window.omnivore.kml(fullPath);
-
-      kmlLayer.on('ready', function () {
-        const group = this;
-
-        group.eachLayer((layer) => {
-          if (layer.setStyle) {
-            layer.setStyle({
-              color,
-              weight: 2,
-              fillColor: color,
-              fillOpacity: 0.3,
-            });
-          }
-        });
-
-        const bounds = group.getBounds();
-        if (bounds.isValid()) {
-          const center = bounds.getCenter();
-          const labelIcon = L.divIcon({
-            className: 'afd-label',
-            html: `<strong>${label}</strong>`,
-            iconSize: [100, 20],
-            iconAnchor: [50, 10],
-          });
-          const labelMarker = L.marker(center, { icon: labelIcon, interactive: false });
-          layerGroup.addLayer(labelMarker);
-        }
-
-        group.eachLayer((layer) => layerGroup.addLayer(layer));
-      });
-
-      kmlLayer.on('error', (err) => {
-        console.error('Gagal load KML:', fullPath, err);
-      });
-    });
-
-    return () => {
-      layerGroup.clearLayers();
-      if (map.hasLayer(layerGroup)) map.removeLayer(layerGroup);
-    };
-  }, [map]);
-
-  return null;
-}
-
 // === Komponen Utama MapView ===
 export default function MapView() {
   const [flyInfo, setFlyInfo] = useState(null);
   const [showList, setShowList] = useState(false);
   const [expandedDistrik, setExpandedDistrik] = useState({});
   const [expandedKebun, setExpandedKebun] = useState({});
-
   // Tambah state untuk active basemap
   const [activeBasemap, setActiveBasemap] = useState('google_roadmap');
   // opsi basemap yang tersedia:
   // 'google_roadmap', 'google_satellite', 'opentopomap', 'osm', 'carto_positron'
-
+  // Referensi untuk peta
+  const mapRef = useRef(null);
+  
   // Grouping (tetap sama)
   const grouped = useMemo(() => {
     const result = {};
@@ -309,14 +150,12 @@ export default function MapView() {
         rumah,
         coords,
       } = item;
-
       if (!result[singkatan_distrik]) {
         result[singkatan_distrik] = {
           label: distrik,
           kebuns: {},
         };
       }
-
       if (!result[singkatan_distrik].kebuns[kode]) {
         result[singkatan_distrik].kebuns[kode] = {
           label: nama_kebun,
@@ -325,7 +164,6 @@ export default function MapView() {
           rumahs: [],
         };
       }
-
       if (
         Array.isArray(coords) &&
         coords.length === 2 &&
@@ -338,10 +176,9 @@ export default function MapView() {
         });
       }
     }
-
     return result;
   }, []);
-
+  
   // Marker list (tetap sama)
   const markers = useMemo(() => {
     return kebunData
@@ -361,7 +198,7 @@ export default function MapView() {
         inventaris: k.inventaris,
       }));
   }, []);
-
+  
   // helper render untuk TileLayer non-Google
   const renderNonGoogleLayer = () => {
     switch (activeBasemap) {
@@ -390,7 +227,7 @@ export default function MapView() {
         return null;
     }
   };
-
+  
   return (
     <div className="flex-1 h-full relative">
       {/* Basemap switcher (tombol) */}
@@ -436,7 +273,7 @@ export default function MapView() {
           Leaflet
         </button>
       </div>
-
+      
       {/* Toggle Button (sidebar) */}
       <button
         onClick={() => setShowList(!showList)}
@@ -444,12 +281,11 @@ export default function MapView() {
       >
         {showList ? '✕ Tutup Daftar' : '📍 Lihat Titik'}
       </button>
-
+      
       {/* Sidebar List (tetap sama) */}
       {showList && (
         <div className="absolute z-[999] top-20 right-0 sm:right-4 w-full sm:w-80 max-h-[70vh] overflow-y-auto bg-white rounded-l-lg sm:rounded shadow-lg border border-gray-200 p-4 text-sm">
           <h3 className="text-lg font-semibold mb-2">Daftar Titik Rumah</h3>
-
           {Object.entries(grouped).map(([distrikKey, distrik]) => {
             const totalKebun = Object.keys(distrik.kebuns).length;
             const totalRumah = Object.values(distrik.kebuns).reduce(
@@ -457,7 +293,6 @@ export default function MapView() {
               0
             );
             const isDistrikOpen = expandedDistrik[distrikKey] || false;
-
             return (
               <div key={distrikKey} className="mb-4">
                 <div
@@ -474,13 +309,11 @@ export default function MapView() {
                   </span>
                   <span className="text-xl">{isDistrikOpen ? '−' : '+'}</span>
                 </div>
-
                 {isDistrikOpen && (
                   <ul className="ml-3 space-y-2">
                     {Object.entries(distrik.kebuns).map(([kode, kebun]) => {
                       const kebunKey = `${distrikKey}-${kode}`;
                       const isKebunOpen = expandedKebun[kebunKey] || false;
-
                       return (
                         <li key={kode}>
                           <div
@@ -499,7 +332,6 @@ export default function MapView() {
                               {isKebunOpen ? '−' : '+'}
                             </span>
                           </div>
-
                           {isKebunOpen && (
                             <ul className="ml-5 space-y-1 mt-1">
                               {kebun.rumahs.map((r) => (
@@ -531,7 +363,6 @@ export default function MapView() {
               </div>
             );
           })}
-
           <hr className="my-4" />
           <div className="text-sm">
             <p>
@@ -559,30 +390,55 @@ export default function MapView() {
           </div>
         </div>
       )}
-
-   <MapContainer center={[-0.5, 100]} zoom={6} className="h-full w-full">
-  {(activeBasemap === 'google_roadmap' || activeBasemap === 'google_satellite') && (
-    <GoogleMutantLayer mapType={activeBasemap === 'google_roadmap' ? 'roadmap' : 'satellite'} />
-  )}
-
-  {activeBasemap !== 'google_roadmap' && activeBasemap !== 'google_satellite' && renderNonGoogleLayer()}
-
-  <KmlLoader />
-  <TiffLayer /> {/* 👈 tambahkan ini */}
-
-  {/* Marker */}
-  {markers.map((m, idx) => (
-    <Marker key={`${m.kode}-${m.rumah}-${idx}`} position={m.position}>
-      <Popup>
-        {/* isi popup */}
-      </Popup>
-    </Marker>
-  ))}
-
-  {flyInfo && <FlyTo position={flyInfo.position} />}
-  <Resizer shouldResize={showList} />
-</MapContainer>
-
+      
+      <MapContainer 
+        center={[4.76, 97.76]} 
+        zoom={14} 
+        className="h-full w-full"
+        whenCreated={mapInstance => mapRef.current = mapInstance}
+      >
+        {(activeBasemap === 'google_roadmap' || activeBasemap === 'google_satellite') && (
+          <GoogleMutantLayer mapType={activeBasemap === 'google_roadmap' ? 'roadmap' : 'satellite'} />
+        )}
+        {activeBasemap !== 'google_roadmap' && activeBasemap !== 'google_satellite' && renderNonGoogleLayer()}
+        
+        {/* Tambahkan komponen GeoJson di sini */}
+        <GeoJson mapRef={mapRef} />
+        
+        {/* <TiffLayer /> */}
+        {/* <TmsLayer /> ← Tile hasil gdal2tiles */}
+        {markers.map((m, idx) => (
+          <Marker key={idx} position={m.position}>
+            <Popup>
+              <strong>
+                {m.kode} — Rumah {m.rumah}
+              </strong>
+              <br />
+              {m.nama}
+              <br />
+              Koordinat: {m.position[0].toFixed(6)} N,{' '}
+              {m.position[1].toFixed(6)} E
+              <br />
+              Luas : {m.luas_ha} ha
+              <br />
+              Inventaris: {m.inventaris} pohon
+              <br />
+              <a
+                href={`https://www.google.com/maps?q=${m.position[0]},${m.position[1]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline mt-1 inline-block"
+              >
+                View on Google Maps
+              </a>
+            </Popup>
+          </Marker>
+        ))}
+        
+        {flyInfo && <FlyTo position={flyInfo.position} />}
+        <Resizer shouldResize={showList} />
+      </MapContainer>
+      
       <style>{`
         .afd-label {
           background: rgba(255,255,255,0.8);

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { loginAPI } from '../utils/api.js';
 import { parseJwt } from '../utils/jwt.js';
 
-export default function LoginPage() {
+export default function LoginPage({ setIsAuthenticated }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -14,7 +14,6 @@ export default function LoginPage() {
   useEffect(() => {
     // Tambahkan class ke body saat halaman Login aktif
     document.body.classList.add('login-page');
-
     return () => {
       // Hapus class saat keluar dari halaman login
       document.body.classList.remove('login-page');
@@ -24,21 +23,20 @@ export default function LoginPage() {
   const handleSubmit = async e => {
     e.preventDefault();
     const res = await loginAPI({ email, password });
-
     if (res.error) {
       toast.error(res.message);
     } else {
       localStorage.setItem('token', res.data.token);
       const userData = parseJwt(res.data.token);
-
       if (userData) {
         localStorage.setItem('user', JSON.stringify(userData));
+        // Update state autentikasi
+        setIsAuthenticated(true);
       } else {
         localStorage.removeItem('token');
         toast.error('Token tidak valid, login gagal.');
         return;
       }
-
       toast.success('Login berhasil!');
       navigate('/app/dashboard');
     }
@@ -51,7 +49,7 @@ export default function LoginPage() {
     >
       <h2 className="text-2xl font-bold text-center">Login Hatch & Carry</h2>
       <img
-        src="/public/2.png"
+        src="/2.png"
         style={{ width: '30%', height: '20%', margin: '0 auto' }}
         alt="Logo"
       />
@@ -64,7 +62,6 @@ export default function LoginPage() {
         className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         required
       />
-
       <div className="relative">
         <input
           type={showPassword ? 'text' : 'password'}
@@ -93,7 +90,6 @@ export default function LoginPage() {
           )}
         </button>
       </div>
-
       <button
         type="submit"
         className="bg-green-600 text-white py-3 rounded hover:bg-green-700 transition"

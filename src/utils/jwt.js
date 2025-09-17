@@ -12,4 +12,4 @@ export function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
-console.log(parseJwt(token));
+// console.log(parseJwt(token));

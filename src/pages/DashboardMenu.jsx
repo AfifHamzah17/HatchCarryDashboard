@@ -1,206 +1,268 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import {
-  BarChart,
-  LineChart,
-  PieChart,
-  ScatterChart,
-  Gauge,
-  pieArcLabelClasses,
-} from '@mui/x-charts';
 import { Paper } from '@mui/material';
-import { RadarChart } from '@mui/x-charts/RadarChart';
-import { gaugeClasses } from '@mui/x-charts/Gauge';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import DashboardChart from '../components/DashboardChart';
 
-export default function AllChartsExample() {
-  const multiLineSeries = [
-    { data: [2, -5.5, 2, -7.5, 1.5, 6], label: 'Series A', area: true, baseline: 'min' },
-    { data: [1, 3, 2, 4, 3, 2], label: 'Series B', area: true, baseline: 'min' },
-    { data: [-2, 1, -1, 2, -2, 1], label: 'Series C', area: true, baseline: 'min' },
-  ];
-
-  const dataset = [
-    { month: 'Jan', london: 50, paris: 70, newYork: 90, seoul: 60 },
-    { month: 'Feb', london: 80, paris: 50, newYork: 75, seoul: 40 },
-    { month: 'Mar', london: 60, paris: 80, newYork: 65, seoul: 50 },
-  ];
-
-  const chartSetting = { width: 500, height: 300 };
-  const valueFormatter = (value) => `${value}k`;
-
-  const pieData = {
-    data: [
-      { id: 0, value: 40, label: 'A' },
-      { id: 1, value: 30, label: 'B' },
-      { id: 2, value: 20, label: 'C' },
-      { id: 3, value: 10, label: 'D' },
-    ],
-  };
-
-  const pieSize = { width: 300, height: 300 };
-
-  const scatterPoints = [
-    { x: -2, y: 4 }, { x: -1, y: 1 }, { x: 0, y: -1 },
-    { x: 1, y: 2 }, { x: 2, y: -3 },
-  ];
-
-  const gaugeSettings = { value: 75, width: 300, height: 300 };
-
-  const radarSeries = [
-    {
-      label: 'USA',
-      data: [6.65, 2.76, 5.15, 0.19, 0.07, 0.12],
-      valueFormatter,
-    },
-    {
-      label: 'Australia',
-      data: [5.52, 5.5, 3.19, 0.51, 0.15, 0.11],
-      valueFormatter,
-    },
-    {
-      label: 'United Kingdom',
-      data: [2.26, 0.29, 2.03, 0.05, 0.04, 0.06],
-      valueFormatter,
-    },
-  ];
-
-  const radarMetrics = ['Oil', 'Coal', 'Gas', 'Flaring', 'Other\nindustry', 'Cement'];
-
+export default function DashboardMenu() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [carouselLoaded, setCarouselLoaded] = useState(false);
+  
+  useEffect(() => {
+    // Set carouselLoaded ke true setelah komponen mount
+    setCarouselLoaded(true);
+  }, []);
+  
   return (
-    <div style={{ padding: 32 }}>
-      <h2>Dashboard</h2>
-      <Carousel
-        navButtonsAlwaysVisible
-        fullHeightHover={false}
-        indicatorContainerProps={{
-          style: { marginTop: '16px' }
-        }}
-      >
-         {/* Slide 1: Image Placeholder */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img
-              src="/public/1.png"
-              alt="Image 1"
-              width="500"
-              height="300"
-            />
-          </div>
-        </Paper>
+    <div style={{ 
+      padding: isMobile ? 12 : 32, 
+      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+      minHeight: '100vh'
+    }}>
+      {/* <h2 style={{ 
+        textAlign: 'center', 
+        marginBottom: isMobile ? 15 : 30, 
+        color: '#1976d2',
+        fontSize: isMobile ? '1.5rem' : '2.5rem',
+        textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        Dashboard Hatch & Carry
+      </h2> */}
+      
+      {/* Carousel Hanya Berisi Gambar */}
+      <div style={{ 
+        marginBottom: isMobile ? 15 : 30,
+        position: 'relative',
+        overflow: 'hidden',
+        height: isMobile ? '320px' : '520px'
+      }}>
+        <Carousel
+          navButtonsAlwaysVisible={!isMobile}
+          fullHeightHover={false}
+          indicatorContainerProps={{
+            style: { marginTop: '1px' }
+          }}
+          animation="slide"
+          timeout={500}
+          height={isMobile ? '320px' : '520px'}
+          key={carouselLoaded ? "loaded" : "loading"}
+        >
+          {/* Slide 1: Image Placeholder */}
+          <Paper key="slide1" style={{ 
+            padding: isMobile ? 10 : 16, 
+            borderRadius: 12,
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            height: isMobile ? '320px' : '520px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ 
+              textAlign: 'center', 
+              marginBottom: isMobile ? 10 : 20, 
+              color: '#1976d2',
+              fontSize: isMobile ? '1rem' : '1.5rem'
+            }}>
+              Galeri Kebun
+            </h3>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: 8,
+              flex: 1
+            }}>
+              <img
+                src="/1.png"
+                alt="Poster"
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                color: 'white',
+                padding: isMobile ? '10px' : '20px',
+                fontSize: isMobile ? '0.9rem' : '1.2rem',
+                fontWeight: 'bold'
+              }}>
+                Kebun Sawit Terluas
+              </div>
+            </div>
+          </Paper>
+          
+          {/* Slide 2: Image Placeholder */}
+          <Paper key="slide2" style={{ 
+            padding: isMobile ? 10 : 16, 
+            borderRadius: 12,
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            height: isMobile ? '320px' : '520px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ 
+              textAlign: 'center', 
+              marginBottom: isMobile ? 10 : 20, 
+              color: '#1976d2',
+              fontSize: isMobile ? '1rem' : '1.5rem'
+            }}>
+              Pelepasan Elaeidobius
+            </h3>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: 8,
+              flex: 1
+            }}>
+              <img
+                src="/3.jpg"
+                alt="Elaeidobius"
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                color: 'white',
+                padding: isMobile ? '10px' : '20px',
+                fontSize: isMobile ? '0.9rem' : '1.2rem',
+                fontWeight: 'bold'
+              }}>
+                Pelepasan Ek 1KSL 
+              </div>
+            </div>
+          </Paper>
+          
+          {/* Slide 3: Image Placeholder */}
+          <Paper key="slide3" style={{ 
+            padding: isMobile ? 10 : 16, 
+            borderRadius: 12,
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            height: isMobile ? '320px' : '520px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ 
+              textAlign: 'center', 
+              marginBottom: isMobile ? 10 : 20, 
+              color: '#1976d2',
+              fontSize: isMobile ? '1rem' : '1.5rem'
+            }}>
+              Rumah Hatch & Carry
+            </h3>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: 8,
+              flex: 1
+            }}>
+              <img
+                src="/4.jpg"
+                alt="Rumah HC"
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                color: 'white',
+                padding: isMobile ? '10px' : '20px',
+                fontSize: isMobile ? '0.9rem' : '1.2rem',
+                fontWeight: 'bold'
+              }}>
+                Kebun 1KLJ Titik 1
+              </div>
+            </div>
+          </Paper>
 
-        {/* Slide 2: Image Placeholder */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img
-              src="https://www.masakapahariini.com/wp-content/uploads/2023/05/shutterstock_1967421388-500x300.jpg"
-              alt="Image 2"
-              width="500"
-              height="300"
-            />
-          </div>
-        </Paper>
-
-        {/* Slide 3: Image Placeholder */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/59/500_x_300_Ramosmania_rodriguesii_%28Rubiaceae%29.jpg"
-              alt="Image 3"
-              width="500"
-              height="300"
-            />
-          </div>
-        </Paper>
-      </Carousel>
-        {/* Slide 1: LineChart + BarChart */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-            <LineChart
-              xAxis={[{ data: [1, 2, 3, 5, 8, 10], label: 'X Axis' }]}
-              series={multiLineSeries}
-              height={300}
-              width={500}
-            />
-            <BarChart
-              dataset={dataset}
-              xAxis={[{ dataKey: 'month' }]}
-              series={[
-                { dataKey: 'london', label: 'London', valueFormatter },
-                { dataKey: 'paris', label: 'Paris', valueFormatter },
-                { dataKey: 'newYork', label: 'New York', valueFormatter },
-                { dataKey: 'seoul', label: 'Seoul', valueFormatter },
-              ]}
-              {...chartSetting}
-            />
-          </div>
-        </Paper>
-
-        {/* Slide 2: PieChart + ScatterChart */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-            <PieChart
-              series={[
-                {
-                  arcLabel: (item) => `${item.value}%`,
-                  arcLabelMinAngle: 35,
-                  arcLabelRadius: '60%',
-                  ...pieData,
-                },
-              ]}
-              sx={{
-                [`& .${pieArcLabelClasses.root}`]: {
-                  fontWeight: 'bold',
-                },
-              }}
-              {...pieSize}
-            />
-
-            <ScatterChart
-              series={[{
-                data: scatterPoints.map((pt) => ({ ...pt, z: pt.x + pt.y })),
-              }]}
-              xAxis={[{
-                colorMap: {
-                  type: 'piecewise',
-                  thresholds: [-1.5, 0, 1.5],
-                  colors: ['#d01c8b', '#f1b6da', '#b8e186', '#4dac26'],
-                },
-              }]}
-              yAxis={[{}]}
-              zAxis={[{}]}
-              width={400}
-              height={300}
-            />
-          </div>
-        </Paper>
-
-        {/* Slide 3: Gauge + RadarChart */}
-        <Paper style={{ padding: 16 }}>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
-            <Gauge
-              {...gaugeSettings}
-              cornerRadius="50%"
-              sx={(theme) => ({
-                [`& .${gaugeClasses.valueText}`]: {
-                  fontSize: 40,
-                },
-                [`& .${gaugeClasses.valueArc}`]: {
-                  fill: '#52b202',
-                },
-                [`& .${gaugeClasses.referenceArc}`]: {
-                  fill: theme.palette.text.disabled,
-                },
-              })}
-            />
-
-            <RadarChart
-              height={300}
-              width={400}
-              series={radarSeries}
-              radar={{ metrics: radarMetrics }}
-            />
-          </div>
-        </Paper>
+          {/* Slide 4: Image Placeholder */}
+          <Paper key="slide3" style={{ 
+            padding: isMobile ? 10 : 16, 
+            borderRadius: 12,
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            height: isMobile ? '320px' : '520px',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <h3 style={{ 
+              textAlign: 'center', 
+              marginBottom: isMobile ? 10 : 20, 
+              color: '#1976d2',
+              fontSize: isMobile ? '1rem' : '1.5rem'
+            }}>
+              Rumah Hatch & Carry
+            </h3>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: 8,
+              flex: 1
+            }}>
+              <img
+                src="/5.jpg"
+                alt="Rumah HC"
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                color: 'white',
+                padding: isMobile ? '10px' : '20px',
+                fontSize: isMobile ? '0.9rem' : '1.2rem',
+                fontWeight: 'bold'
+              }}>
+                Kebun 1KLJ Titik 2
+              </div>
+            </div>
+          </Paper>
+        </Carousel>
+      </div>
+      
+      {/* Container untuk Chart */}
+      <div style={{ 
+        width: '100%',
+        maxWidth: '1400px',
+        margin: '0 auto'
+      }}>
+        <DashboardChart />
+      </div>
     </div>
   );
 }
