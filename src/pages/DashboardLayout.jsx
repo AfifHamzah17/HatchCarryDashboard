@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from './navbar.jsx';
+import { useAuth } from '../context/AuthContext'; 
 
 export default function DashboardLayout() {
   const [userRole, setUserRole] = useState(null);
@@ -34,6 +35,9 @@ export default function DashboardLayout() {
         >
           <Link to="dashboard" className="block px-3 py-2 rounded hover:bg-gray-100">
             Home
+          </Link>
+          <Link to="timeline" className="block px-3 py-2 rounded hover:bg-gray-100">
+            Timeline
           </Link>
           <Link to="map" className="block px-3 py-2 rounded hover:bg-gray-100">
             Peta Hatch &amp; Carry

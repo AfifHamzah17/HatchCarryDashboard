@@ -18,7 +18,7 @@ export default function Navbar({ toggleSidebar }) {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b px-6 py-4 flex justify-between items-center shadow">
+    <nav className="fixed top-0 left-0 right-0 z-1000 bg-white border-b px-6 py-4 flex justify-between items-center shadow">
       <div className="text-2xl font-bold text-green-600">HatchCarry</div>
       <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
         <li>

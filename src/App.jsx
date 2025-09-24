@@ -13,6 +13,10 @@ import MapView from './pages/MapView.jsx';
 import UserManagement from './pages/UserManagement.jsx';
 import AdminPanel from './pages/AdminPanel.jsx';
 import GalleryPage from './pages/GaleryPage.jsx';
+import TimelinePage from './pages/TimelinePage.jsx';
+import PostDetailPage from './pages/PostDetailPage.jsx';
+import SubmitReportPage from './pages/SubmitReportPage.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -45,7 +49,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <AuthProvider>
       <ToastContainer position="top-right" autoClose={3000} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
@@ -82,6 +86,9 @@ export default function App() {
               <Route path="map" element={<MapView />} />
               <Route path="profile" element={<ProfilePage />} />
               <Route path="gallery" element={<GalleryPage />} />
+              <Route path="timeline" element={<TimelinePage />} />
+              <Route path="timeline/:UID" element={<PostDetailPage />} />
+              <Route path="report/submit" element={<SubmitReportPage />} />
               
               {/* Admin-only routes */}
               <Route element={<AdminRoute />}>
@@ -95,7 +102,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AnimatePresence>
-    </>
+    </AuthProvider>
   );
 }
 
