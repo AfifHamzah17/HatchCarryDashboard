@@ -1,7 +1,7 @@
 // src/pages/DashboardLayout.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import Navbar from './navbar.jsx';
+import Navbar from './Navbar.jsx';
 import { useAuth } from '../context/AuthContext'; 
 
 export default function DashboardLayout() {
@@ -33,17 +33,20 @@ export default function DashboardLayout() {
             sidebarOpen ? 'block' : 'hidden'
           } md:block ${heightSidebar}`}
         >
-          <Link to="dashboard" className="block px-3 py-2 rounded hover:bg-gray-100">
+          <Link to="" className="block px-3 py-2 rounded hover:bg-gray-100">
             Home
           </Link>
           <Link to="timeline" className="block px-3 py-2 rounded hover:bg-gray-100">
             Timeline
           </Link>
           <Link to="map" className="block px-3 py-2 rounded hover:bg-gray-100">
-            Peta Hatch &amp; Carry
+            Peta Persebaran
           </Link>
           {userRole === 'admin' && (
             <>
+              <Link to="admin/map" className="block px-3 py-2 rounded hover:bg-gray-100">
+                Peta Rumah Hatch &amp; Carry
+              </Link>
               <Link to="admin/users" className="block px-3 py-2 rounded hover:bg-gray-100">
                 User Management
               </Link>

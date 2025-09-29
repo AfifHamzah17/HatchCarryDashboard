@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import AdminRoute from './pages/AdminRoute.jsx';
 import DashboardLayout from './pages/DashboardLayout.jsx';
 import DashboardMenu from './pages/DashboardMenu.jsx';
+import Map from './pages/Map.jsx';
 import MapView from './pages/MapView.jsx';
 import UserManagement from './pages/UserManagement.jsx';
 import AdminPanel from './pages/AdminPanel.jsx';
@@ -17,6 +18,7 @@ import TimelinePage from './pages/TimelinePage.jsx';
 import PostDetailPage from './pages/PostDetailPage.jsx';
 import SubmitReportPage from './pages/SubmitReportPage.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import NotFound from './pages/404.jsx';
 
 export default function App() {
   const location = useLocation();
@@ -80,10 +82,10 @@ export default function App() {
           
           {/* Protected routes */}
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            <Route path="/app" element={<DashboardLayout />}>
+            <Route path="/" element={<DashboardLayout />}>
               <Route index element={<DashboardMenu />} />
               <Route path="dashboard" element={<DashboardMenu />} />
-              <Route path="map" element={<MapView />} />
+              <Route path="map" element={<Map />} />
               <Route path="profile" element={<ProfilePage />} />
               <Route path="gallery" element={<GalleryPage />} />
               <Route path="timeline" element={<TimelinePage />} />
@@ -94,12 +96,13 @@ export default function App() {
               <Route element={<AdminRoute />}>
                 <Route path="admin" element={<AdminPanel />} />
                 <Route path="admin/users" element={<UserManagement />} />
+                <Route path="admin/map" element={<MapView />} />
               </Route>
             </Route>
           </Route>
           
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
+          {/* Fallback to 404 page for any unknown routes */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
     </AuthProvider>

@@ -122,6 +122,11 @@ const cuacaList = [
   'Berangin'
 ];
 
+const ppList = [];
+for (let i = 1; i <= 35; i++) {
+  ppList.push(i);
+}
+
 export default function ReportForm({ onSuccess, onCancel }) {
   const { user } = useAuth(); 
 
@@ -605,14 +610,14 @@ export default function ReportForm({ onSuccess, onCancel }) {
           )}
         </Box>
 
-        {/* Koordinat X */}
+        {/* RBT */}
         <Box mb={2}>
           <TextField
-            name="koordinatX"
-            label="Koordinat X"
+            name="rbt"
+            label="RBT Saat Ini (Kg/Tross)"
             type="number"
-            step={0.001}
-            value={formData.koordinatX}
+            step={0.01}
+            value={formData.rbt}
             onChange={handleChange}
             fullWidth
             required
@@ -620,19 +625,86 @@ export default function ReportForm({ onSuccess, onCancel }) {
           />
         </Box>
 
-        {/* Koordinat Y */}
+{/* Nomor PP */}
+<Box mb={2}>
+  <TextField
+    name="nomorPP"
+    label="Nomor PP"
+    select
+    value={formData.nomorPP}
+    onChange={handleChange}
+    fullWidth
+    required
+    sx={numberInputStyle}
+  >
+    {ppList.map((pp) => (
+      <MenuItem key={pp} value={pp}>
+        {pp}
+      </MenuItem>
+    ))}
+  </TextField>
+</Box>
+
+        {/* Estimasi Jlh Serangga */}
         <Box mb={2}>
           <TextField
-            name="koordinatY"
-            label="Koordinat Y"
+            name="estimasiSerangga"
+            label="Estimasi Jumlah Serangga"
             type="number"
-            step={0.001}
-            value={formData.koordinatY}
+            value={formData.estimasiSerangga}
             onChange={handleChange}
             fullWidth
             required
             sx={numberInputStyle}
           />
+        </Box>
+
+        {/* Tanggal */}
+        <Box mb={2}>
+          <TextField
+            name="tanggal"
+            label="Tanggal"
+            type="date"
+            value={formData.tanggal}
+            onChange={handleChange}
+            fullWidth
+            required
+            InputLabelProps={{ shrink: true }}
+          />
+        </Box>
+
+        {/* Waktu */}
+        <Box mb={2}>
+          <TextField
+            name="waktu"
+            label="Waktu"
+            type="time"
+            value={formData.waktu}
+            onChange={handleChange}
+            fullWidth
+            required
+            InputLabelProps={{ shrink: true }}
+          />
+        </Box>
+
+        {/* Kondisi Cuaca */}
+        <Box mb={2}>
+          <FormControl fullWidth required>
+            <InputLabel id="cuaca-label">Kondisi Cuaca</InputLabel>
+            <Select
+              labelId="cuaca-label"
+              name="kondisiCuaca"
+              value={formData.kondisiCuaca}
+              onChange={handleChange}
+              required
+            >
+              {cuacaList.map((cuaca) => (
+                <MenuItem key={cuaca} value={cuaca}>
+                  {cuaca}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
 
         {/* Minimap dengan Tombol Lokasi */}
@@ -717,13 +789,15 @@ export default function ReportForm({ onSuccess, onCancel }) {
           </Card>
         </Box>
 
-        {/* Nomor PP */}
+        
+        {/* Koordinat X */}
         <Box mb={2}>
           <TextField
-            name="nomorPP"
-            label="Nomor PP"
+            name="koordinatX"
+            label="Koordinat X"
             type="number"
-            value={formData.nomorPP}
+            step={0.001}
+            value={formData.koordinatX}
             onChange={handleChange}
             fullWidth
             required
@@ -731,76 +805,14 @@ export default function ReportForm({ onSuccess, onCancel }) {
           />
         </Box>
 
-        {/* Estimasi Jlh Serangga */}
+        {/* Koordinat Y */}
         <Box mb={2}>
           <TextField
-            name="estimasiSerangga"
-            label="Estimasi Jumlah Serangga"
+            name="koordinatY"
+            label="Koordinat Y"
             type="number"
-            value={formData.estimasiSerangga}
-            onChange={handleChange}
-            fullWidth
-            required
-            sx={numberInputStyle}
-          />
-        </Box>
-
-        {/* Tanggal */}
-        <Box mb={2}>
-          <TextField
-            name="tanggal"
-            label="Tanggal"
-            type="date"
-            value={formData.tanggal}
-            onChange={handleChange}
-            fullWidth
-            required
-            InputLabelProps={{ shrink: true }}
-          />
-        </Box>
-
-        {/* Waktu */}
-        <Box mb={2}>
-          <TextField
-            name="waktu"
-            label="Waktu"
-            type="time"
-            value={formData.waktu}
-            onChange={handleChange}
-            fullWidth
-            required
-            InputLabelProps={{ shrink: true }}
-          />
-        </Box>
-
-        {/* Kondisi Cuaca */}
-        <Box mb={2}>
-          <FormControl fullWidth required>
-            <InputLabel id="cuaca-label">Kondisi Cuaca</InputLabel>
-            <Select
-              labelId="cuaca-label"
-              name="kondisiCuaca"
-              value={formData.kondisiCuaca}
-              onChange={handleChange}
-              required
-            >
-              {cuacaList.map((cuaca) => (
-                <MenuItem key={cuaca} value={cuaca}>
-                  {cuaca}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-
-        {/* RBT */}
-        <Box mb={2}>
-          <TextField
-            name="rbt"
-            label="RBT Saat Ini (Kg/Tross)"
-            type="number"
-            step={0.01}
-            value={formData.rbt}
+            step={0.001}
+            value={formData.koordinatY}
             onChange={handleChange}
             fullWidth
             required
