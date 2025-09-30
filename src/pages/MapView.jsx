@@ -16,7 +16,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 // Import komponen GeoJson yang sudah dibuat
-import GeoJson from '../components/geojson';
+import GeoJson from '../components/GeoJson';
 // Plugin yang kita butuhkan (pastikan ter-install)
 import 'leaflet.gridlayer.googlemutant'; // google basemap as Leaflet layer
 import 'leaflet-omnivore'; // untuk load KML (omnivore akan global/window.omnivore biasanya)
