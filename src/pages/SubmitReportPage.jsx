@@ -16,13 +16,13 @@ export default function SubmitReportPage() {
     setSuccess(true);
     // Redirect to timeline after 2 seconds
     setTimeout(() => {
-      navigate('/app/timeline');
+      navigate('/timeline');
     }, 2000);
   };
 
   const handleCancel = () => {
     console.log('Cancel clicked, navigating to timeline');
-    navigate('/app/timeline');
+    navigate('/timeline');
   };
 
   if (!user) {
@@ -43,7 +43,7 @@ export default function SubmitReportPage() {
           <MuiLink 
             underline="hover" 
             color="inherit" 
-            onClick={() => navigate('/app/dashboard')}
+            onClick={() => navigate('/dashboard')}
             style={{ cursor: 'pointer' }}
           >
             Dashboard
@@ -51,7 +51,7 @@ export default function SubmitReportPage() {
           <MuiLink 
             underline="hover" 
             color="inherit" 
-            onClick={() => navigate('/app/timeline')}
+            onClick={() => navigate('/timeline')}
             style={{ cursor: 'pointer' }}
           >
             Timeline

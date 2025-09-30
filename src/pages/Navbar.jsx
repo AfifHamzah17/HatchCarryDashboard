@@ -16,7 +16,7 @@ export default function Navbar({ toggleSidebar }) {
     localStorage.removeItem('user');
     
     // Redirect ke halaman login
-    navigate('/login', { replace: true });
+    navigate('/', { replace: true });
     
     // Refresh halaman untuk memastikan semua state direset
     window.location.reload();
@@ -69,13 +69,13 @@ export default function Navbar({ toggleSidebar }) {
         </a>
         <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
           <li>
-            <a href="/app/dashboard" className="hover:text-green-600 transition">Dashboard</a>
+            <a href="/" className="hover:text-green-600 transition">Dashboard</a>
           </li>
           <li>
-            <a href="/app/map" className="hover:text-green-600 transition">Peta</a>
+            <a href="/map" className="hover:text-green-600 transition">Peta</a>
           </li>
           <li>
-            <a href="/app/profile" className="hover:text-green-600 transition">Profil</a>
+            <a href="/profile" className="hover:text-green-600 transition">Profil</a>
           </li>
           <li>
             <button onClick={openLogoutModal} className="hover:text-red-600 transition">

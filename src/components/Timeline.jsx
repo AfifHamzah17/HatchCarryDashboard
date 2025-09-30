@@ -34,7 +34,7 @@ const PostCard = ({ post }) => {
   const navigate = useNavigate();
   
   const handleClick = () => {
-    navigate(`/app/timeline/${post.id}`);
+    navigate(`/timeline/${post.id}`);
   };
   
   // Format tanggal dengan pengecekan validitas - PERBAIKAN
@@ -292,7 +292,7 @@ export default function Timeline() {
           bottom: 16,
           right: 16,
         }}
-        onClick={() => navigate('/app/report/submit')}
+        onClick={() => navigate('/report/submit')}
       >
         <Add />
       </Fab>
@@ -336,7 +336,7 @@ export default function Timeline() {
           <Button 
             variant="contained" 
             sx={{ mt: 2 }}
-            onClick={() => navigate('/app/report/submit')}
+            onClick={() => navigate('/report/submit')}
           >
             Buat Cerita Pertama Anda
           </Button>

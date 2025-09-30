@@ -59,7 +59,7 @@ export default function App() {
             path="/login"
             element={
               isAuthenticated ? (
-                <Navigate to="/app" replace />
+                <Navigate to="/" replace />
               ) : (
                 <PageWrapper>
                   <LoginPage setIsAuthenticated={setIsAuthenticated} />

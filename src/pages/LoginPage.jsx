@@ -38,7 +38,7 @@ export default function LoginPage({ setIsAuthenticated }) {
         return;
       }
       toast.success('Login berhasil!');
-      navigate('/app/dashboard');
+      navigate('/');
     }
   };
 

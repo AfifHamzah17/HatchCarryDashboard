@@ -7,7 +7,7 @@ const Train404 = () => {
         {`
           .full-page-container {
             width: 100vw;
-            height: 100vh;
+            height: 100vw;
             overflow: hidden;
             display: flex;
             justify-content: center;

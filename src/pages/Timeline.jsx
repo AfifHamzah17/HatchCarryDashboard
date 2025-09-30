@@ -35,7 +35,7 @@ const PostCard = ({ post }) => {
   
   const handleClick = () => {
     console.log('Navigating to post detail:', post.id);
-    navigate(`/app/timeline/${post.id}`);
+    navigate(`/timeline/${post.id}`);
   };
   
   return (
@@ -132,7 +132,7 @@ export default function Timeline() {
   const handleAddReport = () => {
     console.log('Add report button clicked');
     try {
-      navigate('/app/report/submit');
+      navigate('/report/submit');
     } catch (err) {
       console.error('Navigation error:', err);
       setSnackbarMessage('Gagal membuka halaman submit laporan');
@@ -143,7 +143,7 @@ export default function Timeline() {
   const handleBackToDashboard = () => {
     console.log('Back to dashboard clicked');
     try {
-      navigate('/app/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       console.error('Navigation error:', err);
       setSnackbarMessage('Gagal kembali ke dashboard');
