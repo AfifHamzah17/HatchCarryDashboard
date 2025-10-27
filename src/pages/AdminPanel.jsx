@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { validKebunList } from '../utils/kebunList.js';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -304,14 +305,15 @@ export default function AdminPanel() {
     return `{${x}, ${y}}`;
   };
 
-  // Export to Excel
+  // Export to Excel - Dikelompokkan berdasarkan kebun saja
   const exportToExcel = () => {
-    // Prepare data for export
+    // Prepare data for export - Data Lengkap
     const exportData = filteredReports.map(report => ({
       'ID': report.id,
       'Kebun': report.kebun || '-',
       'Afdeling': report.afdeling || '-',
       'Blok': report.blok || '-',
+      'Tahun Tanam': report.tahuntanam || '-',
       'Nomor PP': report.nomorPP || '-',
       'Tanggal Laporan': formatDate(report.tanggal),
       'Waktu Laporan': formatTime(report.waktu),
@@ -327,14 +329,17 @@ export default function AdminPanel() {
 
     // Create workbook
     const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(exportData);
-
-    // Set column widths
+    
+    // Create worksheet for Data Lengkap
+    const wsData = XLSX.utils.json_to_sheet(exportData);
+    
+    // Set column widths for Data Lengkap
     const colWidths = [
       { wch: 15 }, // ID
       { wch: 10 }, // Kebun
       { wch: 10 }, // Afdeling
       { wch: 10 }, // Blok
+      { wch: 12 }, // Tahun Tanam
       { wch: 10 }, // Nomor PP
       { wch: 15 }, // Tanggal Laporan
       { wch: 10 }, // Waktu Laporan
@@ -347,11 +352,123 @@ export default function AdminPanel() {
       { wch: 20 }, // Dibuat Oleh
       { wch: 50 }  // Gambar
     ];
-    ws['!cols'] = colWidths;
-
-    // Add worksheet to workbook
-    XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
-
+    wsData['!cols'] = colWidths;
+    
+    // Add Data Lengkap worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, wsData, 'Data Lengkap');
+    
+    // Prepare data for Rekap per Kebun
+    // Sort reports based on validKebunList order
+    const sortedReports = [...filteredReports].sort((a, b) => {
+      // Get index in validKebunList
+      const indexA = validKebunList.findIndex(k => k.id === a.kebun);
+      const indexB = validKebunList.findIndex(k => k.id === b.kebun);
+      
+      // Sort by kebun order
+      return indexA - indexB;
+    });
+    
+    // Create grouped data
+    const groupedData = [];
+    let currentKebun = null;
+    
+    // Add header for grouped data
+    groupedData.push([
+      'Kebun',
+      'Tahun Tanam',
+      'Blok',
+      'ID',
+      'Nomor PP',
+      'Tanggal Laporan',
+      'Waktu Laporan',
+      'Cuaca',
+      'Estimasi Serangga',
+      'RBT (Kg/Tross)',
+      'Koordinat',
+      'Dibuat Oleh'
+    ]);
+    
+    // Process sorted reports
+    sortedReports.forEach(report => {
+      // Check if we need to add a kebun header
+      if (report.kebun !== currentKebun) {
+        currentKebun = report.kebun;
+        
+        // Add kebun header row
+        const kebunDetail = validKebunList.find(k => k.id === report.kebun);
+        const kebunName = kebunDetail ? kebunDetail.name : report.kebun;
+        groupedData.push([
+          `KEBUN: ${kebunName} (${report.kebun})`,
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          '',
+          ''
+        ]);
+      }
+      
+      // Add the actual report data
+      groupedData.push([
+        report.kebun || '-',
+        report.tahuntanam || '-',
+        report.blok || '-',
+        report.id,
+        report.nomorPP || '-',
+        formatDate(report.tanggal),
+        formatTime(report.waktu),
+        report.kondisiCuaca || '-',
+        report.estimasiSerangga || '-',
+        report.rbt || '-',
+        formatKoordinat(report.koordinatX, report.koordinatY),
+        report.createdBy?.name || '-'
+      ]);
+      
+      // Add empty row after each report for better readability
+      groupedData.push([
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
+      ]);
+    });
+    
+    // Create worksheet for Rekap per Kebun
+    const wsGrouped = XLSX.utils.aoa_to_sheet(groupedData);
+    
+    // Set column widths for Rekap per Kebun
+    const colWidthsGrouped = [
+      { wch: 20 }, // Kebun
+      { wch: 15 }, // Tahun Tanam
+      { wch: 10 }, // Blok
+      { wch: 15 }, // ID
+      { wch: 10 }, // Nomor PP
+      { wch: 15 }, // Tanggal Laporan
+      { wch: 10 }, // Waktu Laporan
+      { wch: 15 }, // Cuaca
+      { wch: 20 }, // Estimasi Serangga
+      { wch: 15 }, // RBT
+      { wch: 15 }, // Koordinat
+      { wch: 20 }  // Dibuat Oleh
+    ];
+    wsGrouped['!cols'] = colWidthsGrouped;
+    
+    // Add Rekap per Kebun worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, wsGrouped, 'Rekap per Kebun');
+    
     // Generate filename with current date
     const fileName = `Laporan_Pelaporan_${format(new Date(), 'dd-MM-yyyy')}.xlsx`;
 

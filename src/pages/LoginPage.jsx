@@ -4,12 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { loginAPI } from '../utils/api.js';
 import { parseJwt } from '../utils/jwt.js';
+import { useAuth } from '../context/AuthContext'; 
 
 export default function LoginPage({ setIsAuthenticated }) {
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState(''); // Mengganti email dengan identifier
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth(); 
+
 
   useEffect(() => {
     // Tambahkan class ke body saat halaman Login aktif
@@ -22,23 +25,44 @@ export default function LoginPage({ setIsAuthenticated }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await loginAPI({ email, password });
-    if (res.error) {
-      toast.error(res.message);
-    } else {
+    try {
+      // console.log('Submitting login with:', { identifier, password: '***' });
+      
+      const res = await loginAPI({ identifier, password });
+      // console.log('Login response:', res);
+      
+      if (res.error) {
+        toast.error(res.message);
+        return;
+      }
+      
+      // Pastikan response memiliki struktur yang benar
+      if (!res.data || !res.data.token) {
+        toast.error('Token tidak ditemukan dalam respons');
+        console.error('Invalid response structure:', res);
+        return;
+      }
+      
+      // Simpan token ke localStorage
       localStorage.setItem('token', res.data.token);
+      
+      // Parse token untuk mendapatkan data user
       const userData = parseJwt(res.data.token);
+      // console.log('Parsed user data:', userData);
+      
       if (userData) {
-        localStorage.setItem('user', JSON.stringify(userData));
+        login(userData, res.data.token);
         // Update state autentikasi
         setIsAuthenticated(true);
+        toast.success('Login berhasil!');
+        navigate('/');
       } else {
         localStorage.removeItem('token');
         toast.error('Token tidak valid, login gagal.');
-        return;
       }
-      toast.success('Login berhasil!');
-      navigate('/');
+    } catch (error) {
+      console.error('Login error:', error);
+      toast.error('Terjadi kesalahan saat login');
     }
   };
 
@@ -55,10 +79,10 @@ export default function LoginPage({ setIsAuthenticated }) {
       />
       <br />
       <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        type="text" // Mengganti type="email" dengan type="text"
+        placeholder="Email atau Username" // Mengganti placeholder
+        value={identifier}
+        onChange={e => setIdentifier(e.target.value)}
         className="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
         required
       />
@@ -104,4 +128,20 @@ export default function LoginPage({ setIsAuthenticated }) {
       </p>
     </form>
   );
+}
+
+// utils/api.js
+const BASE_API = 'http://localhost:8080/api';
+
+function authFetch(path, options = {}) {
+  const token = localStorage.getItem('token');
+  return fetch(`${BASE_API}${path}`, {
+    ...options,
+    headers: {
+      // Jangan set 'Content-Type' kalau body-nya FormData (uploadAvatar)
+      ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+      Authorization: token ? `Bearer ${token}` : '',
+      ...options.headers,
+    },
+  });
 }

@@ -1,7 +1,9 @@
 // src/services/reportService.js
 import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'https://hatch-carry-api-307703218179.us-central1.run.app/api';
+//jika api sudah ke google cloud run
+const API_URL = import.meta.env.VITE_API_URL || 'https://ptpn4-n4r1-307703218179.asia-southeast2.run.app/api';
+//jika api masih develop
+// const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 // Helper untuk mendapatkan header dengan token autentikasi
 const getAuthHeaders = () => {

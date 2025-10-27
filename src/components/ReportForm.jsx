@@ -24,8 +24,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Import data JSON dari file
-import kebunDetailData from '../data/blok.json';
+// Import SEMUA data JSON dari file 1D
+import dat1DAT from '../data/1DAT.json';
+import dat1DJB from '../data/1DJB.json';
+import dat1DL1 from '../data/1DL1.json';
+import dat1DL2 from '../data/1DL2.json';
+import dat1DL3 from '../data/1DL3.json';
+import dat1DS1 from '../data/1DS1.json';
 
 // Fix untuk default icon di Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -53,20 +58,61 @@ function MapClickHandler({ updateCoordinates }) {
 
 // Pre-process data untuk memudahkan akses
 const processedKebunData = {};
-kebunDetailData.forEach(kebun => {
-  processedKebunData[kebun.kebun] = {
-    afdelings: kebun.afdelings.map(a => a.afdeling),
-    blocks: {}
-  };
-  kebun.afdelings.forEach(afdeling => {
-    processedKebunData[kebun.kebun].blocks[afdeling.afdeling] = 
-      afdeling.blocks.map(block => block.blok);
-  });
+
+// Kumpulkan semua file data ke dalam satu array
+const dataFiles = [dat1DAT, dat1DJB, dat1DL1, dat1DL2, dat1DL3, dat1DS1];
+
+// Proses data HANYA dari file-file 1D
+dataFiles.forEach(dataFile => {
+  // Pastikan file data ada dan merupakan array
+  if (dataFile && Array.isArray(dataFile)) {
+    dataFile.forEach(kebun => {
+      // Pastikan objek kebun dan properti yang diperlukan ada
+      if (kebun && kebun.kebun && kebun.afdelings) {
+        // Inisialisasi objek untuk kebun ini jika belum ada
+        if (!processedKebunData[kebun.kebun]) {
+          processedKebunData[kebun.kebun] = {
+            afdelings: [],
+            blocks: {}
+          };
+        }
+        
+        // Proses setiap afdeling dalam kebun
+        kebun.afdelings.forEach(afdeling => {
+          if (afdeling && afdeling.afdeling) {
+            // Tambahkan afdeling ke daftar jika belum ada
+            if (!processedKebunData[kebun.kebun].afdelings.includes(afdeling.afdeling)) {
+              processedKebunData[kebun.kebun].afdelings.push(afdeling.afdeling);
+            }
+            
+            // Inisialisasi array untuk blok di afdeling ini jika belum ada
+            if (!processedKebunData[kebun.kebun].blocks[afdeling.afdeling]) {
+              processedKebunData[kebun.kebun].blocks[afdeling.afdeling] = [];
+            }
+            
+            // Proses setiap blok dalam afdeling
+            if (afdeling.blocks && Array.isArray(afdeling.blocks)) {
+              afdeling.blocks.forEach(block => {
+                if (block && block.blok) {
+                  // Tambahkan blok ke daftar jika belum ada
+                  if (!processedKebunData[kebun.kebun].blocks[afdeling.afdeling].includes(block.blok)) {
+                    processedKebunData[kebun.kebun].blocks[afdeling.afdeling].push(block.blok);
+                  }
+                }
+              });
+            }
+          }
+        });
+      }
+    });
+  } else {
+    console.warn('File data tidak valid atau tidak ditemukan:', dataFile);
+  }
 });
 
 // Daftar kebun (nanti bisa diambil dari API)
 const kebunList = [
-  { id: '1KSD', name: '1SEI DAUN' },
+  { id: '1KSD', name: '1KSD' },
   { id: '1KTO', name: '1KTO' },
   { id: '1KSB', name: '1KSB' },
   { id: '1KSK', name: '1KSK' },
@@ -131,7 +177,7 @@ export default function ReportForm({ onSuccess, onCancel }) {
   const { user } = useAuth(); 
 
   const [formData, setFormData] = useState({
-    kebun: '',
+    kebun: user?.kebun?.id || '', // Otomatis diisi dengan kebun user
     afdeling: '',
     blok: '',
     koordinatX: '',
@@ -142,6 +188,7 @@ export default function ReportForm({ onSuccess, onCancel }) {
     waktu: new Date().toTimeString().slice(0, 5),
     kondisiCuaca: '',
     rbt: '',
+    tahuntanam: '', // Tambah field tahun tanam
     image: null
   });
 
@@ -185,7 +232,8 @@ export default function ReportForm({ onSuccess, onCancel }) {
         setFormData(prev => ({
           ...prev,
           afdeling: '',
-          blok: ''
+          blok: '',
+          tahuntanam: '' // Reset tahun tanam juga
         }));
         setAvailableBlocks([]);
       } else {
@@ -208,7 +256,8 @@ export default function ReportForm({ onSuccess, onCancel }) {
         // Reset blok
         setFormData(prev => ({
           ...prev,
-          blok: ''
+          blok: '',
+          tahuntanam: '' // Reset tahun tanam juga
         }));
       } else {
         setAvailableBlocks([]);
@@ -217,6 +266,32 @@ export default function ReportForm({ onSuccess, onCancel }) {
       setAvailableBlocks([]);
     }
   }, [formData.kebun, formData.afdeling]);
+
+  // Update tahun tanam when blok changes
+  useEffect(() => {
+    if (formData.kebun && formData.afdeling && formData.blok) {
+      let blockData = null;
+      
+      // Cari HANYA di file-file 1D
+      for (const dataFile of dataFiles) {
+        const kebun = dataFile.find(k => k.kebun === formData.kebun);
+        if (kebun) {
+          const afdeling = kebun.afdelings.find(a => a.afdeling === formData.afdeling);
+          if (afdeling) {
+            blockData = afdeling.blocks.find(b => b.blok === formData.blok);
+            if (blockData) break; // Berhenti mencari jika sudah ditemukan
+          }
+        }
+      }
+      
+      if (blockData) {
+        setFormData(prev => ({
+          ...prev,
+          tahuntanam: blockData.tahuntanam || ''
+        }));
+      }
+    }
+  }, [formData.kebun, formData.afdeling, formData.blok]);
 
   // Fungsi untuk animasi "fly to" dengan easing function (dari FlyToMap)
   const flyToLocation = (targetLat, targetLng, targetZoom = 15, duration = 2000) => {
@@ -426,63 +501,58 @@ export default function ReportForm({ onSuccess, onCancel }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+// Di handleSubmit function
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null);
 
-    try {
-      const tanggalWaktu = new Date(`${formData.tanggal}T${formData.waktu}`);
-
-      // Prepare data for API
-      const reportData = {
-        kebun: formData.kebun,
-        afdeling: formData.afdeling,
-        blok: formData.blok,
-        koordinatX: parseFloat(formData.koordinatX),
-        koordinatY: parseFloat(formData.koordinatY),
-        nomorPP: parseInt(formData.nomorPP),
-        estimasiSerangga: parseInt(formData.estimasiSerangga),
-        tanggal: formData.tanggal,
-        waktu: `2023-05-15T${formData.waktu}:00`, 
-        kondisiCuaca: formData.kondisiCuaca,
-        rbt: parseFloat(formData.rbt),
-      //   createdBy: {
-      //   id: user?.id || 'anonymous',
-      //   name: user?.name || user?.email || 'Anonymous User',
-      //   email: user?.email || null
-      // } // Perbaikan: kirim sebagai objek
-        
-      };
-
-      let response;
-      
-      // If there's an image file, use form-data endpoint
-      if (formData.image instanceof File) {
-        response = await reportService.createReportWithFile(reportData, formData.image);
-      } 
-      // If there's a base64 image, use JSON endpoint
-      else if (previewImage) {
-        reportData.image = previewImage;
-        response = await reportService.createReport(reportData);
-      } 
-      // If no image, use JSON endpoint without image
-      else {
-        response = await reportService.createReport(reportData);
-      }
-      
-      if (onSuccess) {
-        onSuccess(response);
-      }
-    } catch (err) {
-      console.error('Error submitting report:', err);
-      setError(err.response?.data?.message || err.message || 'Gagal mengirim laporan');
-      setSnackbarMessage(err.response?.data?.message || err.message || 'Gagal mengirim laporan');
-      setSnackbarOpen(true);
-    } finally {
+  try {
+    // Pastikan semua field required terisi
+    if (!formData.tahuntanam) {
+      setError('Tahun tanam harus diisi');
       setLoading(false);
+      return;
     }
-  };
+
+    const reportData = {
+      kebun: formData.kebun,
+      afdeling: formData.afdeling,
+      blok: formData.blok,
+      tahuntanam: formData.tahuntanam, 
+      koordinatX: parseFloat(formData.koordinatX),
+      koordinatY: parseFloat(formData.koordinatY),
+      nomorPP: parseInt(formData.nomorPP),
+      estimasiSerangga: parseInt(formData.estimasiSerangga),
+      tanggal: formData.tanggal,
+      waktu: `${formData.tanggal}T${formData.waktu}:00`, 
+      kondisiCuaca: formData.kondisiCuaca,
+      rbt: parseFloat(formData.rbt)
+    };
+
+    let response;
+    
+    if (formData.image instanceof File) {
+      response = await reportService.createReportWithFile(reportData, formData.image);
+    } else if (previewImage) {
+      reportData.image = previewImage;
+      response = await reportService.createReport(reportData);
+    } else {
+      response = await reportService.createReport(reportData);
+    }
+    
+    if (onSuccess) {
+      onSuccess(response);
+    }
+  } catch (err) {
+    console.error('Error submitting report:', err);
+    setError(err.response?.data?.message || err.message || 'Gagal mengirim laporan');
+    setSnackbarMessage(err.response?.data?.message || err.message || 'Gagal mengirim laporan');
+    setSnackbarOpen(true);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
@@ -528,9 +598,9 @@ export default function ReportForm({ onSuccess, onCancel }) {
       )}
 
       <Box component="form" onSubmit={handleSubmit}>
-        {/* Kebun (Dropdown) */}
+        {/* Kebun (Dropdown) - Disabled karena sudah otomatis terisi */}
         <Box mb={2}>
-          <FormControl fullWidth required>
+          <FormControl fullWidth disabled>
             <InputLabel id="kebun-label">Kebun</InputLabel>
             <Select
               labelId="kebun-label"
@@ -610,6 +680,19 @@ export default function ReportForm({ onSuccess, onCancel }) {
           )}
         </Box>
 
+        {/* Tahun Tanam - ReadOnly karena otomatis terisi */}
+        <Box mb={2}>
+          <TextField
+            name="tahuntanam"
+            label="Tahun Tanam"
+            value={formData.tahuntanam}
+            fullWidth
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </Box>
+
         {/* RBT */}
         <Box mb={2}>
           <TextField
@@ -625,25 +708,25 @@ export default function ReportForm({ onSuccess, onCancel }) {
           />
         </Box>
 
-{/* Nomor PP */}
-<Box mb={2}>
-  <TextField
-    name="nomorPP"
-    label="Nomor PP"
-    select
-    value={formData.nomorPP}
-    onChange={handleChange}
-    fullWidth
-    required
-    sx={numberInputStyle}
-  >
-    {ppList.map((pp) => (
-      <MenuItem key={pp} value={pp}>
-        {pp}
-      </MenuItem>
-    ))}
-  </TextField>
-</Box>
+        {/* Nomor PP */}
+        <Box mb={2}>
+          <TextField
+            name="nomorPP"
+            label="Nomor PP"
+            select
+            value={formData.nomorPP}
+            onChange={handleChange}
+            fullWidth
+            required
+            sx={numberInputStyle}
+          >
+            {ppList.map((pp) => (
+              <MenuItem key={pp} value={pp}>
+                {pp}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
 
         {/* Estimasi Jlh Serangga */}
         <Box mb={2}>

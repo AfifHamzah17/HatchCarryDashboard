@@ -330,6 +330,13 @@ export default function PostDetailPage() {
           <strong>Blok:</strong> {post.blok || 'Data tidak tersedia'}
         </Typography>
       </Box>
+
+      <Box display="flex" alignItems="center" mb={2}>
+        <LocationOn fontSize="small" color="primary" sx={{ mr: 1.5 }} />
+        <Typography variant="body1">
+          <strong>Tahun Tanam:</strong> {post.tahuntanam || 'Data tidak tersedia'}
+        </Typography>
+      </Box>
       
       <Box display="flex" alignItems="center" mb={2}>
         <LocationOn fontSize="small" color="primary" sx={{ mr: 1.5 }} />

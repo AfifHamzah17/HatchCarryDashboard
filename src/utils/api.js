@@ -1,4 +1,5 @@
-const BASE_API = 'https://hatch-carry-api-307703218179.us-central1.run.app/api';
+const BASE_API = 'https://ptpn4-n4r1-307703218179.asia-southeast2.run.app/api';
+// const BASE_API = 'http://localhost:8080/api';
 
 function authFetch(path, options = {}) {
   const token = localStorage.getItem('token');
@@ -14,20 +15,20 @@ function authFetch(path, options = {}) {
 }
 
 // Auth API
-export async function registerAPI({ email, username, password }) {
+export async function registerAPI({ email, username, password, kebun }) {
   const res = await fetch(`${BASE_API}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, username, password }),
+    body: JSON.stringify({ email, username, password, kebun }),
   });
   return res.json();
 }
 
-export async function loginAPI({ email, password }) {
+export async function loginAPI({ identifier, password }) {
   const res = await fetch(`${BASE_API}/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ identifier, password }),
   });
   return res.json();
 }

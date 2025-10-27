@@ -1,5 +1,5 @@
 // src/pages/SubmitReportPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Typography, Box, Alert, Paper, Breadcrumbs, Link as MuiLink } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -10,6 +10,20 @@ export default function SubmitReportPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [success, setSuccess] = useState(false);
+  const [userKebun, setUserKebun] = useState(null);
+
+  useEffect(() => {
+    // Ambil informasi kebun user dari context atau localStorage
+    if (user && user.kebun) {
+      setUserKebun(user.kebun);
+    } else {
+      // Alternatif: ambil dari localStorage jika tidak ada di context
+      const userData = JSON.parse(localStorage.getItem('user') || '{}');
+      if (userData.kebun) {
+        setUserKebun(userData.kebun);
+      }
+    }
+  }, [user]);
 
   const handleSuccess = (report) => {
     console.log('Report created successfully:', report);
@@ -30,6 +44,16 @@ export default function SubmitReportPage() {
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Alert severity="error">
           Anda harus login untuk mengirim laporan
+        </Alert>
+      </Container>
+    );
+  }
+
+  if (!userKebun) {
+    return (
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Alert severity="warning">
+          Informasi kebun tidak tersedia. Silakan hubungi administrator.
         </Alert>
       </Container>
     );
@@ -69,7 +93,11 @@ export default function SubmitReportPage() {
             Laporan berhasil dikirim! Anda akan diarahkan ke halaman timeline...
           </Alert>
         ) : (
-          <ReportForm onSuccess={handleSuccess} onCancel={handleCancel} />
+          <ReportForm 
+            onSuccess={handleSuccess} 
+            onCancel={handleCancel} 
+            userKebun={userKebun} 
+          />
         )}
       </Paper>
     </Container>
