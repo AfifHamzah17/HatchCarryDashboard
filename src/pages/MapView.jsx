@@ -20,6 +20,7 @@ import GeoJson from '../components/GeoJson';
 // Plugin yang kita butuhkan (pastikan ter-install)
 import 'leaflet.gridlayer.googlemutant'; // google basemap as Leaflet layer
 import 'leaflet-omnivore'; // untuk load KML (omnivore akan global/window.omnivore biasanya)
+
 // Atur ikon marker Leaflet (tetap sama)
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -27,8 +28,21 @@ L.Icon.Default.mergeOptions({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });
+
 // Ambil API key dari Vite env
 const GOOGLE_API_KEY = import.meta.env.VITE_MAP_API || '';
+
+// Fungsi untuk menghasilkan warna yang konsisten dari string
+function stringToColor(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  const hue = hash % 360;
+  return `hsl(${hue}, 70%, 50%)`;
+}
+
 // Load Google Maps JS API secara dinamis
 function loadGoogleMapsScript(apiKey) {
   return new Promise((resolve, reject) => {
@@ -59,6 +73,7 @@ function loadGoogleMapsScript(apiKey) {
     document.head.appendChild(script);
   });
 }
+
 // GoogleMutantLayer: menambahkan Google basemap ke Leaflet via gridlayer.googleMutant
 function GoogleMutantLayer({ mapType = 'roadmap' }) {
   const map = useMap();
@@ -101,6 +116,7 @@ function GoogleMutantLayer({ mapType = 'roadmap' }) {
   }, [map, mapType]);
   return null;
 }
+
 // FlyTo (tetap)
 function FlyTo({ position }) {
   const map = useMap();
@@ -111,6 +127,7 @@ function FlyTo({ position }) {
   }, [position, map]);
   return null;
 }
+
 // Resizer (tetap)
 function Resizer({ shouldResize }) {
   const map = useMap();
@@ -123,6 +140,137 @@ function Resizer({ shouldResize }) {
   }, [shouldResize, map]);
   return null;
 }
+
+// Komponen untuk menampilkan KML
+function KmlLayer({ mapRef }) {
+  const map = useMap();
+  const [kmlLayers, setKmlLayers] = useState({});
+  const [labelLayers, setLabelLayers] = useState({});
+  
+  useEffect(() => {
+    // Daftar direktori dan file KML
+    const kmlDirectories = [
+      'DASAH',
+      'DLAB 1',
+      'DLAB 2',
+      'DLAB 3',
+      'DSER 1',
+      'DSER 2'
+    ];
+    
+    const newKmlLayers = {};
+    const newLabelLayers = {};
+    
+    // Fungsi untuk membuat ikon label
+    const createLabelIcon = function(labelText) {
+      return L.divIcon({
+        className: 'leaflet-div-icon',
+        html: `<div class="kebun-label">${labelText}</div>`,
+        iconSize: [100, 20],
+        iconAnchor: [50, 10]
+      });
+    };
+    
+    // Load semua KML dari setiap direktori
+    kmlDirectories.forEach(dir => {
+      // Daftar file KML di setiap direktori
+      let kmlFiles = [];
+      
+      if (dir === 'DASAH') {
+        kmlFiles = ['KAMBT.kml', 'KBDSL.kml', 'KHTPD.kml', 'KPMDI.kml', 'KSDDP.kml', 'KSSIL.kml'];
+      } else if (dir === 'DLAB 1') {
+        kmlFiles = ['KBUTU.kml', 'KSDAN.kml', 'KSMTI.kml', 'KTORA.kml'];
+      } else if (dir === 'DLAB 2') {
+        kmlFiles = ['KATOR.kml', 'KPARO.kml', 'KSBAR.kml', 'KSKAR.kml'];
+      } else if (dir === 'DLAB 3') {
+        kmlFiles = ['KANAS.kml', 'KANAU.kml', 'KLAJI.kml', 'KMMDA.kml', 'KMSTN.kml', 'KRPPT.kml', 'KSSUT.kml'];
+      } else if (dir === 'DSER 1') {
+        kmlFiles = ['KBANG.kml', 'KBDBY.kml', 'KDSHU.kml', 'KGMNO.kml', 'KGPAR.kml', 'KGPMA.kml', 'KSDUN.kml'];
+      } else if (dir === 'DSER 2') {
+        kmlFiles = ['KGBTU.kml', 'KHPSG.kml', 'KRBTN.kml', 'KSGGI.kml', 'KSPTH.kml', 'KTARA.kml'];
+      }
+      
+      kmlFiles.forEach(file => {
+        const filePath = `/${dir}/${file}`;
+        const fileName = file.replace('.kml', '');
+        const kebunColor = stringToColor(fileName);
+        
+        try {
+          // Load KML menggunakan omnivore TANPA opsi style
+          const kmlLayer = omnivore.kml(filePath)
+            .on('ready', function() {
+              // --- PERUBAHAN KRUSIAL DI SINI ---
+              // Terapkan gaya secara paksa ke setiap layer setelah KML dimuat
+              this.eachLayer(function(layer) {
+                layer.setStyle({
+                  color: kebunColor,
+                  weight: 2,
+                  fillOpacity: 0.4,
+                  fillColor: kebunColor
+                });
+
+                // Tambahkan popup ke setiap feature dalam KML
+                if (layer.feature && layer.feature.properties) {
+                  let popupContent = `<strong>${fileName}</strong><br>`;
+                  
+                  // Tambahkan semua properti ke popup
+                  Object.keys(layer.feature.properties).forEach(key => {
+                    popupContent += `<b>${key}:</b> ${layer.feature.properties[key]}<br>`;
+                  });
+                  
+                  layer.bindPopup(popupContent);
+                }
+              });
+              
+              // Hitung centroid dari layer
+              const bounds = this.getBounds();
+              const center = bounds.getCenter();
+              
+              // Tambahkan label di centroid
+              const labelMarker = L.marker(center, {
+                icon: createLabelIcon(fileName)
+              }).addTo(map);
+              
+              // Simpan referensi ke label
+              newLabelLayers[fileName] = labelMarker;
+            })
+            .on('error', function(e) {
+              console.error(`Error loading KML ${filePath}:`, e);
+            });
+          
+          // Tambahkan layer ke peta
+          kmlLayer.addTo(map);
+          
+          // Simpan referensi ke layer
+          newKmlLayers[fileName] = kmlLayer;
+        } catch (error) {
+          console.error(`Error processing KML ${filePath}:`, error);
+        }
+      });
+    });
+    
+    setKmlLayers(newKmlLayers);
+    setLabelLayers(newLabelLayers);
+    
+    // Cleanup function
+    return () => {
+      Object.values(newKmlLayers).forEach(layer => {
+        if (map.hasLayer(layer)) {
+          map.removeLayer(layer);
+        }
+      });
+      
+      Object.values(newLabelLayers).forEach(marker => {
+        if (map.hasLayer(marker)) {
+          map.removeLayer(marker);
+        }
+      });
+    };
+  }, [map]);
+  
+  return null;
+}
+
 // === Komponen Utama MapView ===
 export default function MapView() {
   const [flyInfo, setFlyInfo] = useState(null);
@@ -405,6 +553,9 @@ export default function MapView() {
         {/* Tambahkan komponen GeoJson di sini */}
         <GeoJson mapRef={mapRef} />
         
+        {/* Tambahkan komponen KmlLayer di bawah GeoJson */}
+        <KmlLayer mapRef={mapRef} />
+        
         {/* <TiffLayer /> */}
         {/* <TmsLayer /> ← Tile hasil gdal2tiles */}
         {markers.map((m, idx) => (
@@ -440,7 +591,7 @@ export default function MapView() {
       </MapContainer>
       
       <style>{`
-        .afd-label {
+        .kebun-label {
           background: rgba(255,255,255,0.8);
           border: 1px solid #666;
           padding: 2px 6px;
@@ -449,6 +600,7 @@ export default function MapView() {
           font-size: 12px;
           pointer-events: none;
           white-space: nowrap;
+          box-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
       `}</style>
     </div>
